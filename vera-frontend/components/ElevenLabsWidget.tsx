@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Script from 'next/script';
+import PADImageGallery from './PADImageGallery';
 
 interface ElevenLabsWidgetProps {
   researchId: string;
@@ -529,6 +530,11 @@ export default function ElevenLabsWidget({
             </p>
           </div>
         </div>
+      </div>
+
+      {/* PAD Image Gallery */}
+      <div className="px-4 pb-2">
+        <PADImageGallery />
       </div>
 
       {/* Sync Status Notification */}
