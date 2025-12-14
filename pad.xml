@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lexicon version="1.0"
+      xmlns="http://www.w3.org/2005/01/pronunciation-lexicon"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.w3.org/2005/01/pronunciation-lexicon
+        http://www.w3.org/TR/2007/CR-pronunciation-lexicon-20071212/pls.xsd"
+      alphabet="ipa" xml:lang="en-GB">
+
+  <!-- Core condition -->
+  <lexeme>
+    <grapheme>peripheral artery disease</grapheme>
+    <phoneme>pəˈrɪfərəl ˈɑːtəri dɪˈziːz</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>peripheral arterial disease</grapheme>
+    <phoneme>pəˈrɪfərəl ɑːˈtɪəriəl dɪˈziːz</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>PAD</grapheme>
+    <alias>peripheral artery disease</alias>
+    <phoneme>piː eɪ diː</phoneme>
+  </lexeme>
+
+  <!-- Symptoms and syndromes -->
+  <lexeme>
+    <grapheme>claudication</grapheme>
+    <phoneme>ˌklɔːdɪˈkeɪʃən</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>intermittent claudication</grapheme>
+    <phoneme>ˌɪntəˈmɪtənt ˌklɔːdɪˈkeɪʃən</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>rest pain</grapheme>
+    <phoneme>rɛst peɪn</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>critical limb ischaemia</grapheme>
+    <phoneme>ˈkrɪtɪkəl lɪm ɪˈskiːmiə</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>critical limb ischemia</grapheme>
+    <phoneme>ˈkrɪtɪkəl lɪm ɪˈskiːmiə</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>chronic limb-threatening ischaemia</grapheme>
+    <phoneme>ˈkrɒnɪk lɪm ˈθrɛtənɪŋ ɪˈskiːmiə</phoneme>
+  </lexeme>
+  <lexeme>
+    <grapheme>chronic limb-threatening ischemia</grapheme>
+    <phoneme>ˈkrɒnɪk lɪm ˈθrɛtənɪŋ ɪˈskiːmiə</phoneme>
+  </lexeme>
+
+  <!-- Anatomy -->
+  <lexeme><grapheme>femoral</grapheme><phoneme>ˈfɛmərəl</phoneme></lexeme>
+  <lexeme><grapheme>popliteal</grapheme><phoneme>ˌpɒplɪˈtiːəl</phoneme></lexeme>
+  <lexeme><grapheme>tibial</grapheme><phoneme>ˈtɪbiəl</phoneme></lexeme>
+  <lexeme><grapheme>iliac</grapheme><phoneme>ˈɪlɪæk</phoneme></lexeme>
+  <lexeme><grapheme>dorsalis pedis</grapheme><phoneme>dɔːˈsɑːlɪs ˈpiːdɪs</phoneme></lexeme>
+
+  <!-- Pathophysiology -->
+  <lexeme><grapheme>atherosclerosis</grapheme><phoneme>ˌæθərəʊskləˈrəʊsɪs</phoneme></lexeme>
+  <lexeme><grapheme>stenosis</grapheme><phoneme>stɪˈnəʊsɪs</phoneme></lexeme>
+  <lexeme><grapheme>occlusion</grapheme><phoneme>əˈkluːʒən</phoneme></lexeme>
+
+  <!-- Diagnostics -->
+  <lexeme>
+    <grapheme>ABI</grapheme>
+    <alias>ankle-brachial index</alias>
+    <phoneme>eɪ biː aɪ</phoneme>
+  </lexeme>
+  <lexeme><grapheme>ankle-brachial index</grapheme><phoneme>ˈæŋkəl ˈbreɪkiəl ˈɪndɛks</phoneme></lexeme>
+  <lexeme><grapheme>Doppler</grapheme><phoneme>ˈdɒplə</phoneme></lexeme>
+  <lexeme><grapheme>angiography</grapheme><phoneme>ˌændʒiˈɒɡrəfi</phoneme></lexeme>
+
+  <!-- Procedures -->
+  <lexeme><grapheme>angioplasty</grapheme><phoneme>ˈændʒiəʊˌplæsti</phoneme></lexeme>
+  <lexeme><grapheme>stent</grapheme><phoneme>stɛnt</phoneme></lexeme>
+  <lexeme><grapheme>bypass</grapheme><phoneme>ˈbaɪpɑːs</phoneme></lexeme>
+  <lexeme><grapheme>amputation</grapheme><phoneme>ˌæmpjʊˈteɪʃən</phoneme></lexeme>
+
+  <!-- Antiplatelet / antithrombotic -->
+  <lexeme><grapheme>aspirin</grapheme><phoneme>ˈæspərɪn</phoneme></lexeme>
+  <lexeme><grapheme>clopidogrel</grapheme><phoneme>kləˈpɪdəɡrɛl</phoneme></lexeme>
+  <lexeme><grapheme>rivaroxaban</grapheme><phoneme>ˌrɪvəˈrɒksəbæn</phoneme></lexeme>
+  <lexeme><grapheme>apixaban</grapheme><phoneme>ˌæpɪkˈsæbæn</phoneme></lexeme>
+  <lexeme><grapheme>warfarin</grapheme><phoneme>ˈwɔːfərɪn</phoneme></lexeme>
+
+  <!-- Lipid-lowering -->
+  <lexeme><grapheme>statin</grapheme><phoneme>ˈstætɪn</phoneme></lexeme>
+  <lexeme><grapheme>atorvastatin</grapheme><phoneme>əˌtɔːvəˈstætɪn</phoneme></lexeme>
+  <lexeme><grapheme>rosuvastatin</grapheme><phoneme>ˌrɒzjuːvəˈstætɪn</phoneme></lexeme>
+  <lexeme><grapheme>ezetimibe</grapheme><phoneme>ɪˈzɛtɪmaɪb</phoneme></lexeme>
+  <lexeme><grapheme>evolocumab</grapheme><phoneme>ɪˌvɒlɒˈkjuːmæb</phoneme></lexeme>
+  <lexeme><grapheme>alirocumab</grapheme><phoneme>ˌælɪˈrɒkjuːmæb</phoneme></lexeme>
+
+  <!-- Antihypertensive -->
+  <lexeme><grapheme>ramipril</grapheme><phoneme>ˈræmɪprɪl</phoneme></lexeme>
+  <lexeme><grapheme>lisinopril</grapheme><phoneme>lɪˈzɪnəprɪl</phoneme></lexeme>
+  <lexeme><grapheme>losartan</grapheme><phoneme>lɒˈsɑːtæn</phoneme></lexeme>
+  <lexeme><grapheme>valsartan</grapheme><phoneme>vælˈsɑːtæn</phoneme></lexeme>
+
+  <!-- Diabetes / cardiometabolic -->
+  <lexeme><grapheme>metformin</grapheme><phoneme>mɛtˈfɔːmɪn</phoneme></lexeme>
+  <lexeme><grapheme>empagliflozin</grapheme><phoneme>ˌɛmpəˈɡlɪfləʊzɪn</phoneme></lexeme>
+  <lexeme><grapheme>dapagliflozin</grapheme><phoneme>ˌdæpəˈɡlɪfləʊzɪn</phoneme></lexeme>
+  <lexeme><grapheme>semaglutide</grapheme><phoneme>ˌsɛməˈɡluːtaɪd</phoneme></lexeme>
+
+</lexicon>
