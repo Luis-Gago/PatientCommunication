@@ -39,11 +39,11 @@ function ImageModal({ image, onClose }: ImageModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
+      className="fixed inset-0 z-50 flex items-start justify-start p-4 bg-black/70"
       onClick={onClose}
     >
       <div
-        className="relative max-w-4xl max-h-[90vh] bg-white rounded-xl shadow-2xl overflow-hidden"
+        className="relative max-w-2xl max-h-[90vh] bg-white rounded-xl shadow-2xl overflow-hidden mt-4 ml-4"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}

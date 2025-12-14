@@ -533,7 +533,7 @@ export default function ElevenLabsWidget({
       </div>
 
       {/* PAD Image Gallery */}
-      <div className="px-4 pb-2">
+      <div className="px-4 pb-2 max-w-sm">
         <PADImageGallery />
       </div>
 
