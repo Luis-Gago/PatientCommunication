@@ -106,7 +106,7 @@ def check_password():
         st.text_input(
             "Password", type="password", on_change=password_entered, key="password"
         )
-        st.error("😕 Password incorrect")
+        st.error("😕 Password incorrect, sorry")
         return False
     else:
         # Password correct.
