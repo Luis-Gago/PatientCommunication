@@ -81,11 +81,8 @@ INFO  [alembic.runtime.migration] Running upgrade  -> 001, Add ElevenLabs tracki
 Check that the columns were added:
 
 ```bash
-# If using SQLite
-sqlite3 vera.db "PRAGMA table_info(vera_conversations);"
-
-# Or if using PostgreSQL
-psql -d vera_db -c "\d vera_conversations"
+# Using Neon PostgreSQL (get connection string from console.neon.tech)
+psql "$DATABASE_URL" -c "\d vera_conversations"
 ```
 
 You should see three new columns:
@@ -189,7 +186,7 @@ Once the backend is running:
 
 5. **Check the database:**
    ```bash
-   sqlite3 vera.db "SELECT * FROM vera_conversations ORDER BY id DESC LIMIT 5;"
+   psql "$DATABASE_URL" -c "SELECT * FROM vera_conversations ORDER BY id DESC LIMIT 5;"
    ```
 
    You should see messages with `provider = 'elevenlabs'` and populated `elevenlabs_conversation_id` and `elevenlabs_message_id` fields.

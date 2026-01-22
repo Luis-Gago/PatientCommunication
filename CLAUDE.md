@@ -44,7 +44,7 @@ This is a monorepo containing:
 Research IDs are managed through a database-driven system:
 
 1. **Environment Variable** (`RESEARCH_IDS`) - Comma-separated list in Railway environment
-2. **Database** - IDs must be added to `vera_research_ids` table in PostgreSQL
+2. **Database** - IDs must be added to `vera_research_ids` table in Neon PostgreSQL
 3. **Validation** - Frontend validates IDs by calling backend API, which checks the database
 
 ### Adding New Research IDs
@@ -80,7 +80,7 @@ railway run python scripts/seed_research_ids.py
 ```
 
 #### Step 3: Verify
-Check your PostgreSQL database to confirm the IDs were added to `vera_research_ids` table.
+Check your Neon database to confirm the IDs were added to `vera_research_ids` table.
 
 ### Important Notes
 
@@ -93,7 +93,7 @@ Check your PostgreSQL database to confirm the IDs were added to `vera_research_i
 
 ### Backend (Railway)
 Required variables:
-- `DATABASE_URL` - PostgreSQL connection string
+- `DATABASE_URL` - Neon PostgreSQL connection string (get from console.neon.tech)
 - `SECRET_KEY` - JWT secret key
 - `OPENAI_API_KEY` - OpenAI API key
 - `GROQ_API_KEY` - Groq API key
@@ -154,7 +154,7 @@ The frontend uses ElevenLabs Conversational AI Widget for voice and text input:
 - Widget appears in bottom-right corner
 - Supports both voice AND text input
 - Conversations are synced to database every 5 seconds during active conversation
-- Transcripts are fetched from ElevenLabs API and saved to PostgreSQL
+- Transcripts are fetched from ElevenLabs API and saved to Neon PostgreSQL
 
 ### Troubleshooting Widget Issues
 

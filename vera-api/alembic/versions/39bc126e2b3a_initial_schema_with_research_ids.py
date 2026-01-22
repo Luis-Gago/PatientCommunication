@@ -68,7 +68,13 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_vera_user_sessions_id'), 'vera_user_sessions', ['id'], unique=False)
     op.create_index(op.f('ix_vera_user_sessions_session_token'), 'vera_user_sessions', ['session_token'], unique=True)
-    op.drop_table('conversations')
+    
+    # Drop old conversations table if it exists (for migration from older schema)
+    from sqlalchemy import inspect
+    bind = op.get_bind()
+    inspector = inspect(bind)
+    if 'conversations' in inspector.get_table_names():
+        op.drop_table('conversations')
     # ### end Alembic commands ###
 
 

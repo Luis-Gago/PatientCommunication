@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Python 3.11+
-- PostgreSQL database (already configured with Neon)
+- Neon PostgreSQL database (serverless Postgres at console.neon.tech)
 - API keys (already in `.env`)
 
 ## Installation & Setup

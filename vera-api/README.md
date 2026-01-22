@@ -10,7 +10,7 @@ A FastAPI-based backend for the Vera P.A.D. educational chatbot, supporting mult
 - **Multiple LLM providers** (OpenAI GPT-4o/o3-mini, Groq Llama/Gemma)
 - **Text-to-speech** via ElevenLabs (same voice as original Vera)
 - **Disclaimer acknowledgment flow**
-- **PostgreSQL** for conversation persistence
+- **Neon PostgreSQL** for conversation persistence
 - **Admin dashboard** for managing research IDs
 
 ## Architecture
@@ -23,7 +23,7 @@ FastAPI Backend
     ├─ Research ID Validation
     ├─ LLM Streaming (OpenAI, Groq)
     ├─ Text-to-Speech (ElevenLabs)
-    └─ PostgreSQL Database
+    └─ Neon PostgreSQL Database
 ```
 
 ## Setup
@@ -48,9 +48,10 @@ cp .env.example .env
 
 ### 3. Database Setup
 
+This project uses **Neon PostgreSQL** (serverless Postgres). Get your connection string from https://console.neon.tech and add it to your `.env` file.
+
 ```bash
-# Run migrations to create tables
-alembic revision --autogenerate -m "Initial schema"
+# Run migrations to create tables in Neon
 alembic upgrade head
 ```
 
