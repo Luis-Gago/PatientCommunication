@@ -1,8 +1,8 @@
-# VERA System Architecture
+# PaCo System Architecture
 
 ## High-Level Overview
 
-VERA is a conversational AI education assistant for Peripheral Artery Disease (P.A.D.), deployed as a distributed web application with real-time audio capabilities.
+PaCo is a conversational AI education assistant for medication adherence, deployed as a distributed web application with real-time audio capabilities.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -34,7 +34,7 @@ VERA is a conversational AI education assistant for Peripheral Artery Disease (P
 
 ## Component Architecture
 
-### Frontend (vera-frontend)
+### Frontend (paco-frontend)
 
 **Technology Stack:**
 - **Framework:** Next.js 15 (React 18)
@@ -46,17 +46,17 @@ VERA is a conversational AI education assistant for Peripheral Artery Disease (P
 **Key Components:**
 
 1. **Authentication Flow:**
-   - [ResearchIDScreen.tsx](vera-frontend/components/ResearchIDScreen.tsx) - Research ID validation
-   - [DisclaimerScreen.tsx](vera-frontend/components/DisclaimerScreen.tsx) - Disclaimer acceptance
+   - [ResearchIDScreen.tsx](paco-frontend/components/ResearchIDScreen.tsx) - Research ID validation
+   - [DisclaimerScreen.tsx](paco-frontend/components/DisclaimerScreen.tsx) - Disclaimer acceptance
    - JWT token management
 
 2. **Chat Interface:**
-   - [ChatInterface.tsx](vera-frontend/components/ChatInterface.tsx) - Main chat UI
-   - [IPhoneFrame.tsx](vera-frontend/components/IPhoneFrame.tsx) - Device frame wrapper
+   - [ChatInterface.tsx](paco-frontend/components/ChatInterface.tsx) - Main chat UI
+   - [IPhoneFrame.tsx](paco-frontend/components/IPhoneFrame.tsx) - Device frame wrapper
    - Message display and input handling
 
 3. **Real-time Communication:**
-   - [useWebSocket.ts](vera-frontend/hooks/useWebSocket.ts) - WebSocket hook
+   - [useWebSocket.ts](paco-frontend/hooks/useWebSocket.ts) - WebSocket hook
    - Auto-reconnection logic
    - Message queueing
 
@@ -68,7 +68,7 @@ VERA is a conversational AI education assistant for Peripheral Artery Disease (P
 
 **File Structure:**
 ```
-vera-frontend/
+paco-frontend/
 ├── app/
 │   ├── page.tsx              # Main app entry
 │   ├── layout.tsx            # Root layout
@@ -88,7 +88,7 @@ vera-frontend/
 
 ---
 
-### Backend (vera-api)
+### Backend (paco-api)
 
 **Technology Stack:**
 - **Framework:** FastAPI (Python 3.11)
@@ -100,27 +100,27 @@ vera-frontend/
 **Key Modules:**
 
 1. **API Layer:**
-   - [app/main.py](vera-api/app/main.py) - Application entry point
-   - [app/api/endpoints/auth.py](vera-api/app/api/endpoints/auth.py) - Authentication endpoints
-   - [app/api/endpoints/chat.py](vera-api/app/api/endpoints/chat.py) - Chat WebSocket endpoint
+   - [app/main.py](paco-api/app/main.py) - Application entry point
+   - [app/api/endpoints/auth.py](paco-api/app/api/endpoints/auth.py) - Authentication endpoints
+   - [app/api/endpoints/chat.py](paco-api/app/api/endpoints/chat.py) - Chat WebSocket endpoint
 
 2. **Services:**
-   - [app/services/conversation_service.py](vera-api/app/services/conversation_service.py) - Message persistence
-   - [app/services/tts_service.py](vera-api/app/services/tts_service.py) - Text-to-speech generation
+   - [app/services/conversation_service.py](paco-api/app/services/conversation_service.py) - Message persistence
+   - [app/services/tts_service.py](paco-api/app/services/tts_service.py) - Text-to-speech generation
 
 3. **Data Layer:**
-   - [app/models/database.py](vera-api/app/models/database.py) - SQLAlchemy models
-   - [app/schemas/](vera-api/app/schemas/) - Pydantic schemas
-   - [app/core/database.py](vera-api/app/core/database.py) - Database connection
+   - [app/models/database.py](paco-api/app/models/database.py) - SQLAlchemy models
+   - [app/schemas/](paco-api/app/schemas/) - Pydantic schemas
+   - [app/core/database.py](paco-api/app/core/database.py) - Database connection
 
 4. **Configuration:**
-   - [app/core/config.py](vera-api/app/core/config.py) - Settings management
+   - [app/core/config.py](paco-api/app/core/config.py) - Settings management
    - Environment-based configuration
    - API key management
 
 **File Structure:**
 ```
-vera-api/
+paco-api/
 ├── app/
 │   ├── main.py                    # FastAPI app
 │   ├── api/

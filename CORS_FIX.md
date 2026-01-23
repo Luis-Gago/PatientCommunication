@@ -20,7 +20,7 @@ Access to XMLHttpRequest at 'https://your-backend.railway.app/api/...' from orig
 
 #### Steps to Fix in Railway Dashboard:
 
-1. Go to Railway Dashboard → Your Project → vera-api service
+1. Go to Railway Dashboard → Your Project → paco-api service
 2. Click on **Variables** tab
 3. Find or add `CORS_ORIGINS` variable
 4. Set the value to include BOTH localhost (for development) AND your Vercel URL:
@@ -31,7 +31,7 @@ http://localhost:3000,https://your-app.vercel.app
 
 **Example with actual URLs:**
 ```
-http://localhost:3000,https://vera-pad-frontend.vercel.app
+http://localhost:3000,https://paco-frontend.vercel.app
 ```
 
 **Important Notes:**

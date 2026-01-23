@@ -1,4 +1,4 @@
-# VERA Audio Fix - TODO Checklist
+# PaCo Audio Fix - TODO Checklist
 
 ## Immediate Actions Required
 
@@ -54,7 +54,7 @@
 - [ ] Open production site
 - [ ] Send first message (this should trigger audio unlock)
 - [ ] Check console for "Audio enabled successfully"
-- [ ] Wait for VERA response
+- [ ] Wait for PaCo response
 - [ ] Check console for "Received audio message: Audio data present"
 - [ ] Verify audio plays automatically
 - [ ] Test with 2-3 more messages to confirm consistency
@@ -64,7 +64,7 @@
 ## 3. If Issues Persist
 
 ### Enhanced Debugging - Backend
-- [ ] Add more logging to [chat.py:244-261](vera-api/app/api/endpoints/chat.py#L244-L261):
+- [ ] Add more logging to [chat.py:244-261](paco-api/app/api/endpoints/chat.py#L244-L261):
 ```python
 print(f"ElevenLabs API Key configured: {bool(settings.ELEVENLABS_API_KEY)}")
 print(f"ElevenLabs API Key prefix: {settings.ELEVENLABS_API_KEY[:10]}...")
@@ -75,7 +75,7 @@ print(f"Base64 encoded length: {len(audio_base64)}")
 - [ ] Check Railway logs for new output
 
 ### Enhanced Debugging - Frontend
-- [ ] Add more logging to [ChatInterface.tsx:89-96](vera-frontend/components/ChatInterface.tsx#L89-L96):
+- [ ] Add more logging to [ChatInterface.tsx:89-96](paco-frontend/components/ChatInterface.tsx#L89-L96):
 ```typescript
 case 'audio':
   console.log('=== AUDIO DEBUG ===');
@@ -110,7 +110,7 @@ case 'audio':
 ## 4. Additional Improvements (If Needed)
 
 ### Add User-Visible Audio Status
-- [ ] Add audio icon indicator in [ChatInterface.tsx](vera-frontend/components/ChatInterface.tsx)
+- [ ] Add audio icon indicator in [ChatInterface.tsx](paco-frontend/components/ChatInterface.tsx)
 - [ ] Show loading state while audio generates
 - [ ] Show play icon when audio is ready
 - [ ] Show error state if audio fails

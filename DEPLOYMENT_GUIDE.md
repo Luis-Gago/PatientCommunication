@@ -1,6 +1,6 @@
-# VERA Deployment Guide - CI/CD with Vercel & Railway
+# PaCo Deployment Guide - CI/CD with Vercel & Railway
 
-Complete guide to deploy VERA frontend and backend with automatic CI/CD from GitHub.
+Complete guide to deploy PaCo frontend and backend with automatic CI/CD from GitHub.
 
 ## Overview
 
@@ -33,7 +33,7 @@ Complete guide to deploy VERA frontend and backend with automatic CI/CD from Git
 
 1. Click on the service that was created
 2. Go to "Settings" tab
-3. **IMPORTANT - Root Directory**: Set to `vera-api`
+3. **IMPORTANT - Root Directory**: Set to `paco-api`
    - This ensures Railway builds the FastAPI app, not the Streamlit app
 4. **Builder**: Should auto-detect "railpack" (Python)
 5. **Start Command**: Auto-detected from `railpack.toml`
@@ -49,7 +49,7 @@ In Railway dashboard → Variables tab, add these:
 DATABASE_URL=postgresql://[your-neon-connection-string]
 
 # Security
-SECRET_KEY=vera-secret-key-change-in-production-use-long-random-string
+SECRET_KEY=paco-secret-key-change-in-production-use-long-random-string
 
 # API Keys
 OPENAI_API_KEY=sk-...
@@ -81,7 +81,7 @@ curl https://your-app.up.railway.app/health
 Railway automatically enables CI/CD! Every push to your `main` branch will trigger a new deployment.
 
 **Settings → Service → Deploy**:
-- ✅ Watch Paths: `vera-api/**`
+- ✅ Watch Paths: `paco-api/**`
 - ✅ Auto Deploy: Enabled
 - ✅ Branch: main
 
@@ -104,7 +104,7 @@ Railway automatically enables CI/CD! Every push to your `main` branch will trigg
 ### Step 3: Configure Build Settings
 
 **Framework Preset**: Next.js (auto-detected)
-**Root Directory**: `vera-frontend`
+**Root Directory**: `paco-frontend`
 **Build Command**: `npm run build`
 **Output Directory**: `.next` (default)
 **Install Command**: `npm install`
@@ -141,7 +141,7 @@ Railway will automatically redeploy with the new CORS settings.
 1. Open `https://your-app.vercel.app`
 2. Enter Research ID: `RID001`
 3. Acknowledge disclaimer
-4. Chat with VERA!
+4. Chat with PaCo!
 
 ### Step 8: Enable CI/CD
 
@@ -159,7 +159,7 @@ Vercel automatically enables CI/CD! Settings are at:
 ### For Frontend (Vercel)
 
 1. Go to Project Settings → Domains
-2. Add your domain (e.g., `vera.yourdomain.com`)
+2. Add your domain (e.g., `paco.yourdomain.com`)
 3. Follow DNS instructions (add CNAME record)
 4. Vercel auto-provisions SSL certificate
 
@@ -189,8 +189,8 @@ git commit -m "Update feature X"
 git push origin main
 
 # 4. Automatic deployments trigger!
-# - Railway deploys backend (if vera-api/ changed)
-# - Vercel deploys frontend (if vera-frontend/ changed)
+# - Railway deploys backend (if paco-api/ changed)
+# - Vercel deploys frontend (if paco-frontend/ changed)
 # - Takes 2-3 minutes
 ```
 
@@ -306,7 +306,7 @@ Shows:
 ### Backend Build Fails
 
 **Error**: `ModuleNotFoundError`
-**Fix**: Ensure `requirements.txt` is in `vera-api/` directory
+**Fix**: Ensure `requirements.txt` is in `paco-api/` directory
 
 **Error**: `Database connection failed`
 **Fix**: Check `DATABASE_URL` in Railway environment variables
@@ -314,14 +314,14 @@ Shows:
 **Error**: Railway detects wrong app (Streamlit instead of FastAPI)
 **Fix**:
 1. Go to Settings → Service
-2. Set **Root Directory** to `vera-api`
-3. Verify `railpack.toml` exists in `vera-api/` directory
+2. Set **Root Directory** to `paco-api`
+3. Verify `railpack.toml` exists in `paco-api/` directory
 4. Redeploy the service
 
 ### Frontend Build Fails
 
 **Error**: `Module not found: Can't resolve '@/components/...'`
-**Fix**: Ensure Root Directory is set to `vera-frontend` in Vercel
+**Fix**: Ensure Root Directory is set to `paco-frontend` in Vercel
 
 **Error**: `NEXT_PUBLIC_API_URL is not defined`
 **Fix**: Add environment variables in Vercel project settings
@@ -375,7 +375,7 @@ Shows:
    - Vercel: Enable deployment notifications
 
 4. **Share with users**:
-   - Your VERA app is live at: `https://your-app.vercel.app`
+   - Your PaCo app is live at: `https://your-app.vercel.app`
    - Provide research IDs: RID001-RID010
 
 ---
@@ -432,4 +432,4 @@ vercel --prod
 ✅ **SSL**: Automatic HTTPS
 ✅ **Monitoring**: Built-in logs and analytics
 
-**You're ready to deploy! Follow the steps above and your VERA app will be live in ~15 minutes.**
+**You're ready to deploy! Follow the steps above and your PaCo app will be live in ~15 minutes.**

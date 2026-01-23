@@ -1,6 +1,6 @@
-# VERA Deployment Checklist
+# PaCo Deployment Checklist
 
-Quick checklist to deploy VERA with CI/CD in 15 minutes.
+Quick checklist to deploy PaCo with CI/CD in 15 minutes.
 
 ## ☐ Pre-Deployment (5 min)
 
@@ -23,7 +23,7 @@ Quick checklist to deploy VERA with CI/CD in 15 minutes.
 2. [ ] Create new project → Deploy from GitHub repo
 3. [ ] Select your `pad` repository
 4. [ ] **CRITICAL**: Configure service settings:
-   - [ ] **Root Directory**: Set to `vera-api` (prevents Railway from detecting Streamlit app)
+   - [ ] **Root Directory**: Set to `paco-api` (prevents Railway from detecting Streamlit app)
    - [ ] Builder: Should auto-detect "railpack"
    - [ ] Health Check Path: `/health`
 5. [ ] Add environment variables (see `.env.production.template`)
@@ -40,7 +40,7 @@ Quick checklist to deploy VERA with CI/CD in 15 minutes.
 1. [ ] Sign up at [vercel.com](https://vercel.com) with GitHub
 2. [ ] Import project → Select your `pad` repository
 3. [ ] Configure build:
-   - [ ] Root Directory: `vera-frontend`
+   - [ ] Root Directory: `paco-frontend`
    - [ ] Framework: Next.js (auto-detected)
 4. [ ] Add environment variables:
    ```
@@ -75,13 +75,13 @@ Quick checklist to deploy VERA with CI/CD in 15 minutes.
 
 Both platforms automatically enable CI/CD:
 
-- [ ] Railway watches: `vera-api/**` → Auto-deploys on changes
-- [ ] Vercel watches: `vera-frontend/**` → Auto-deploys on changes
+- [ ] Railway watches: `paco-api/**` → Auto-deploys on changes
+- [ ] Vercel watches: `paco-frontend/**` → Auto-deploys on changes
 
 Test CI/CD:
 ```bash
 # Make a small change
-echo "# Test" >> vera-frontend/README.md
+echo "# Test" >> paco-frontend/README.md
 
 # Commit and push
 git add .
@@ -108,12 +108,12 @@ git push origin main
 
 ### Backend won't deploy
 - [ ] Check Railway build logs
-- [ ] Verify `requirements.txt` exists in `vera-api/`
+- [ ] Verify `requirements.txt` exists in `paco-api/`
 - [ ] Ensure `DATABASE_URL` is correct
 
 ### Frontend won't deploy
 - [ ] Check Vercel build logs
-- [ ] Verify Root Directory is `vera-frontend`
+- [ ] Verify Root Directory is `paco-frontend`
 - [ ] Ensure all environment variables are set
 
 ### WebSocket connection fails
@@ -138,4 +138,4 @@ See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed instructions.
 
 ---
 
-**You're done! 🎉 Your VERA app is live with CI/CD!**
+**You're done! 🎉 Your PaCo app is live with CI/CD!**

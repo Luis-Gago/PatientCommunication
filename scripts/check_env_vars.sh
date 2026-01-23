@@ -4,7 +4,7 @@
 # This generates the exact commands you need to set in Vercel and Railway
 
 echo "================================================"
-echo "   VERA Environment Variable Generator"
+echo "   PaCo Environment Variable Generator"
 echo "================================================"
 echo ""
 

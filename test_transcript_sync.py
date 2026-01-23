@@ -11,10 +11,10 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables FIRST before importing app modules
-load_dotenv('/Users/david/GitHub/pad/vera-api/.env')
+load_dotenv('/Users/david/GitHub/pad/paco-api/.env')
 
 # Add parent directory to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'vera-api'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'paco-api'))
 
 from app.db.base import SessionLocal
 from app.models.database import Conversation, ResearchID
@@ -169,7 +169,7 @@ def main():
     research_id = sys.argv[2]
 
     print("="*60)
-    print("VERA Transcript Sync Test")
+    print("PaCo Transcript Sync Test")
     print("="*60)
     print(f"Conversation ID: {conversation_id}")
     print(f"Research ID: {research_id}")

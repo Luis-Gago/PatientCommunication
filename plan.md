@@ -1,4 +1,4 @@
-# VERA Audio Playback Issue - Assessment & Fix Plan
+# PaCo Audio Playback Issue - Assessment & Fix Plan
 
 ## Problem Statement
 Voice audio works perfectly in local development but fails in production hosted environment. Text displays correctly, but no audio playback occurs.
@@ -16,13 +16,13 @@ Voice audio works perfectly in local development but fails in production hosted 
 
 ### Current Implementation
 
-**Backend ([chat.py:244-256](vera-api/app/api/endpoints/chat.py#L244-L256)):**
+**Backend ([chat.py:244-256](paco-api/app/api/endpoints/chat.py#L244-L256)):**
 - ✅ TTS service generates MP3 audio (ElevenLabs)
 - ✅ Audio converted to base64
 - ✅ Sent via WebSocket as `audio` message type
 - ✅ Uses `/tmp` directory for Railway deployment
 
-**Frontend ([ChatInterface.tsx:50-61](vera-frontend/components/ChatInterface.tsx#L50-L61)):**
+**Frontend ([ChatInterface.tsx:50-61](paco-frontend/components/ChatInterface.tsx#L50-L61)):**
 - ✅ `playAudio()` function receives base64 audio
 - ✅ Sets audio source as data URL
 - ✅ Calls `.play()` on audio element
@@ -128,7 +128,7 @@ CORS_ORIGINS=http://localhost:3000,https://your-app.vercel.app
 
 ### Priority 1: Environment Configuration ⚠️ CRITICAL
 **Vercel (Frontend):**
-1. Get actual Railway backend URL (e.g., `https://vera-api.up.railway.app`)
+1. Get actual Railway backend URL (e.g., `https://paco-api.up.railway.app`)
 2. Set environment variables in Vercel dashboard:
    ```
    NEXT_PUBLIC_API_URL=https://[your-railway-url]/api/v1
@@ -137,7 +137,7 @@ CORS_ORIGINS=http://localhost:3000,https://your-app.vercel.app
 3. Redeploy frontend
 
 **Railway (Backend):**
-1. Get actual Vercel frontend URL (e.g., `https://vera.vercel.app`)
+1. Get actual Vercel frontend URL (e.g., `https://paco.vercel.app`)
 2. Set environment variables in Railway dashboard:
    ```
    ELEVENLABS_API_KEY=sk_YOUR_ELEVENLABS_API_KEY_HERE
@@ -154,14 +154,14 @@ CORS_ORIGINS=http://localhost:3000,https://your-app.vercel.app
 ### Priority 3: Add Enhanced Debugging
 **If issue persists, add logging to production:**
 
-**Backend enhancement ([chat.py:244-261](vera-api/app/api/endpoints/chat.py#L244-L261)):**
+**Backend enhancement ([chat.py:244-261](paco-api/app/api/endpoints/chat.py#L244-L261)):**
 ```python
 # Add more detailed logging
 print(f"TTS API Key present: {bool(settings.ELEVENLABS_API_KEY)}")
 print(f"Audio base64 length: {len(audio_base64)} bytes")
 ```
 
-**Frontend enhancement ([ChatInterface.tsx:89-96](vera-frontend/components/ChatInterface.tsx#L89-L96)):**
+**Frontend enhancement ([ChatInterface.tsx:89-96](paco-frontend/components/ChatInterface.tsx#L89-L96)):**
 ```typescript
 case 'audio':
   console.log('Audio message received:', {
@@ -208,7 +208,7 @@ case 'audio':
 ```
 ┌─────────────────────┐
 │   Vercel (Frontend) │
-│  vera.vercel.app    │
+│  paco.vercel.app    │
 │                     │
 │  - Next.js App      │
 │  - WebSocket Client │
@@ -218,7 +218,7 @@ case 'audio':
            ▼
 ┌─────────────────────┐
 │  Railway (Backend)  │
-│  vera-api.railway   │
+│  paco-api.railway   │
 │                     │
 │  - FastAPI          │
 │  - WebSocket Server │
@@ -263,7 +263,7 @@ case 'audio':
 - [ ] Production site loads without console errors
 - [ ] WebSocket connects (check Network tab)
 - [ ] User can send message successfully
-- [ ] VERA responds with streaming text
+- [ ] PaCo responds with streaming text
 - [ ] Console shows "Audio message sent to client" (backend logs)
 - [ ] Console shows "Received audio message: Audio data present" (frontend)
 - [ ] Audio plays automatically after first user interaction
@@ -286,20 +286,20 @@ case 'audio':
 ## Files to Monitor
 
 **Backend:**
-- [vera-api/app/api/endpoints/chat.py:244-261](vera-api/app/api/endpoints/chat.py#L244-L261) - TTS generation
-- [vera-api/app/services/tts_service.py](vera-api/app/services/tts_service.py) - ElevenLabs integration
-- [vera-api/app/core/config.py](vera-api/app/core/config.py) - Environment config
+- [paco-api/app/api/endpoints/chat.py:244-261](paco-api/app/api/endpoints/chat.py#L244-L261) - TTS generation
+- [paco-api/app/services/tts_service.py](paco-api/app/services/tts_service.py) - ElevenLabs integration
+- [paco-api/app/core/config.py](paco-api/app/core/config.py) - Environment config
 
 **Frontend:**
-- [vera-frontend/components/ChatInterface.tsx:35-47](vera-frontend/components/ChatInterface.tsx#L35-L47) - Audio enablement
-- [vera-frontend/components/ChatInterface.tsx:50-61](vera-frontend/components/ChatInterface.tsx#L50-L61) - Audio playback
-- [vera-frontend/components/ChatInterface.tsx:89-96](vera-frontend/components/ChatInterface.tsx#L89-L96) - Audio message handling
-- [vera-frontend/hooks/useWebSocket.ts](vera-frontend/hooks/useWebSocket.ts) - WebSocket connection
+- [paco-frontend/components/ChatInterface.tsx:35-47](paco-frontend/components/ChatInterface.tsx#L35-L47) - Audio enablement
+- [paco-frontend/components/ChatInterface.tsx:50-61](paco-frontend/components/ChatInterface.tsx#L50-L61) - Audio playback
+- [paco-frontend/components/ChatInterface.tsx:89-96](paco-frontend/components/ChatInterface.tsx#L89-L96) - Audio message handling
+- [paco-frontend/hooks/useWebSocket.ts](paco-frontend/hooks/useWebSocket.ts) - WebSocket connection
 
 **Configuration:**
 - Railway environment variables
 - Vercel environment variables
-- [vera-api/railway.toml](vera-api/railway.toml) - Railway config
+- [paco-api/railway.toml](paco-api/railway.toml) - Railway config
 
 ---
 

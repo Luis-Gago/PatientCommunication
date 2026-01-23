@@ -1,0 +1,16 @@
+[build]
+builder = "railpack"
+
+[deploy]
+# NOTE: Railway should have Root Directory set to "paco-api" in dashboard
+# Then this command runs from within that directory
+startCommand = "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+[watch]
+# Only watch changes in paco-api directory (not Streamlit app)
+include = ["paco-api/**"]
+exclude = ["paco-api/alembic/versions/**", "paco-api/__pycache__/**"]

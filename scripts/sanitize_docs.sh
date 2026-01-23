@@ -22,10 +22,10 @@ FILES=(
     "todo.md"
     "plan.md"
     "DEPLOYMENT_GUIDE.md"
-    "vera-api/RAILWAY_SETUP.md"
-    "VERA_FRONTEND_COMPLETE.md"
-    "vera-api/QUICKSTART.md"
-    "vera-api/IMPLEMENTATION_SUMMARY.md"
+    "paco-api/RAILWAY_SETUP.md"
+    "PACO_FRONTEND_COMPLETE.md"
+    "paco-api/QUICKSTART.md"
+    "paco-api/IMPLEMENTATION_SUMMARY.md"
     "scripts/check_env_vars.sh"
 )
 

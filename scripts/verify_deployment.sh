@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# VERA Deployment Verification Script
+# PaCo Deployment Verification Script
 # This script helps verify your production deployment is configured correctly
 
 set -e  # Exit on error
 
 echo "================================================"
-echo "   VERA Production Deployment Verification"
+echo "   PaCo Production Deployment Verification"
 echo "================================================"
 echo ""
 
@@ -37,8 +37,8 @@ print_info() {
 # Get URLs from user
 echo "Please provide your deployment URLs:"
 echo ""
-read -p "Railway Backend URL (e.g., vera-api-production.up.railway.app): " RAILWAY_URL
-read -p "Vercel Frontend URL (e.g., vera-pad.vercel.app): " VERCEL_URL
+read -p "Railway Backend URL (e.g., paco-api-production.up.railway.app): " RAILWAY_URL
+read -p "Vercel Frontend URL (e.g., paco-pad.vercel.app): " VERCEL_URL
 
 echo ""
 echo "================================================"
@@ -160,7 +160,7 @@ if [ "$HEALTH_RESPONSE" = "200" ] && [ "$FRONTEND_RESPONSE" = "200" ]; then
     echo "Next steps:"
     echo "1. Open https://${VERCEL_URL} in your browser"
     echo "2. Open DevTools Console (F12)"
-    echo "3. Send a test message to VERA"
+    echo "3. Send a test message to PaCo"
     echo "4. Check console for these messages:"
     echo "   - 'WebSocket connected successfully'"
     echo "   - 'Audio enabled successfully'"

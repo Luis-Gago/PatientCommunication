@@ -1,6 +1,6 @@
-# VERA Project Documentation
+# PaCo Project Documentation
 
-This file contains important project-specific guidelines and procedures for the VERA (Voice-Enabled Research Assistant) project.
+This file contains important project-specific guidelines and procedures for the PaCo (Patient Communication) project.
 
 ## ⚠️ CRITICAL SECURITY RULES ⚠️
 
@@ -34,8 +34,8 @@ This file contains important project-specific guidelines and procedures for the 
 ## Project Structure
 
 This is a monorepo containing:
-- **vera-api/** - FastAPI backend (deployed on Railway)
-- **vera-frontend/** - Next.js frontend (deployed on Vercel)
+- **paco-api/** - FastAPI backend (deployed on Railway)
+- **paco-frontend/** - Next.js frontend (deployed on Vercel)
 
 ## Research ID Management
 
@@ -44,7 +44,7 @@ This is a monorepo containing:
 Research IDs are managed through a database-driven system:
 
 1. **Environment Variable** (`RESEARCH_IDS`) - Comma-separated list in Railway environment
-2. **Database** - IDs must be added to `vera_research_ids` table in Neon PostgreSQL
+2. **Database** - IDs must be added to `paco_research_ids` table in Neon PostgreSQL
 3. **Validation** - Frontend validates IDs by calling backend API, which checks the database
 
 ### Adding New Research IDs
@@ -52,7 +52,7 @@ Research IDs are managed through a database-driven system:
 **CRITICAL: This is a multi-step process that must be completed for new IDs to work!**
 
 #### Step 1: Update Railway Environment Variable
-1. Go to Railway dashboard → Vera project → Variables
+1. Go to Railway dashboard → PaCo project → Variables
 2. Add or update `RESEARCH_IDS` with your new IDs (comma-separated)
    - Example: `VSLZSMV-01,2RQH8R6-02,goofy-test`
 3. Save the changes
@@ -75,12 +75,12 @@ curl -X POST https://YOUR-RAILWAY-URL/api/v1/admin/seed-research-ids \
 
 **Option B: Using the Seed Script (if you have Railway CLI)**
 ```bash
-cd vera-api
+cd paco-api
 railway run python scripts/seed_research_ids.py
 ```
 
 #### Step 3: Verify
-Check your Neon database to confirm the IDs were added to `vera_research_ids` table.
+Check your Neon database to confirm the IDs were added to `paco_research_ids` table.
 
 ### Important Notes
 
@@ -117,7 +117,7 @@ Required variables:
 
 ### Frontend (Vercel)
 - Auto-deploys on push to main branch
-- Build command: `cd vera-frontend && npm run build`
+- Build command: `cd paco-frontend && npm run build`
 - No additional steps needed
 
 ## Database
@@ -128,11 +128,11 @@ When you add new models or modify existing ones:
 
 ```bash
 # Create a new migration
-cd vera-api
+cd paco-api
 source ../.venv/bin/activate
 alembic revision --autogenerate -m "Description of changes"
 
-# Review the migration file in vera-api/alembic/versions/
+# Review the migration file in paco-api/alembic/versions/
 
 # Apply migrations locally
 alembic upgrade head
@@ -142,10 +142,10 @@ alembic upgrade head
 
 ### Important Tables
 
-- `vera_research_ids` - Valid research participant IDs
-- `vera_user_sessions` - User login sessions
-- `vera_disclaimer_acknowledgments` - Disclaimer acceptance records
-- `vera_conversations` - All chat messages (voice and text)
+- `paco_research_ids` - Valid research participant IDs
+- `paco_user_sessions` - User login sessions
+- `paco_disclaimer_acknowledgments` - Disclaimer acceptance records
+- `paco_conversations` - All chat messages (voice and text)
 
 ## ElevenLabs Widget
 
@@ -166,7 +166,7 @@ If widget doesn't load:
 
 ## Common Issues
 
-### "Loading VERA" hangs
+### "Loading PaCo" hangs
 - This was caused by React hooks being called before function definitions
 - Fixed by using `React.useCallback` at top of component
 - See commit: "Fix widget loading issue by removing duplicate function definitions"
@@ -178,7 +178,7 @@ If widget doesn't load:
 
 ### Research ID not working
 - **Most common issue:** Forgot to run seed script after updating environment variable
-- Check that ID exists in `vera_research_ids` table
+- Check that ID exists in `paco_research_ids` table
 - Verify ID is marked as `is_active = true`
 
 ## Security Notes
@@ -192,14 +192,14 @@ If widget doesn't load:
 
 ### Backend
 ```bash
-cd vera-api
+cd paco-api
 source ../.venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 ```
 
 ### Frontend
 ```bash
-cd vera-frontend
+cd paco-frontend
 npm run dev
 ```
 
@@ -209,7 +209,7 @@ Access at: http://localhost:3000
 
 ### Check Railway deployment status
 ```bash
-cd vera-api
+cd paco-api
 railway status
 ```
 

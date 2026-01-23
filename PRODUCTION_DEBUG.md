@@ -2,8 +2,8 @@
 
 ## Your Production Setup (Confirmed)
 
-**Railway Backend:** `vera-pad.up.railway.app`
-**WebSocket URL:** `wss://vera-pad.up.railway.app/api/v1/chat/ws/chat`
+**Railway Backend:** `paco-pad.up.railway.app`
+**WebSocket URL:** `wss://paco-pad.up.railway.app/api/v1/chat/ws/chat`
 **Frontend:** Vercel deployment
 
 ✅ **Environment variables ARE configured** (confirmed from production bundle)
@@ -16,7 +16,7 @@
 
 Open this URL in your browser:
 ```
-https://vera-pad.up.railway.app/health
+https://paco-pad.up.railway.app/health
 ```
 
 **Expected:** `{"status":"healthy"}`
@@ -28,7 +28,7 @@ If you get an error, your backend is down or not deployed correctly.
 ### Step 2: Check Railway Logs for TTS Errors
 
 1. Go to [Railway Dashboard](https://railway.app/dashboard)
-2. Click on your `vera-pad` project
+2. Click on your `paco-pad` project
 3. Click **Deployments**
 4. Click **View Logs**
 
@@ -112,7 +112,7 @@ You can test your backend directly:
 
 ```bash
 # Test health endpoint
-curl https://vera-pad.up.railway.app/health
+curl https://paco-pad.up.railway.app/health
 
 # Expected: {"status":"healthy"}
 ```

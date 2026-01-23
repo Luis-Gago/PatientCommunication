@@ -1,4 +1,4 @@
-# VERA - Quick Setup Reference
+# PaCo - Quick Setup Reference
 
 ## For Vercel Deployment (Production)
 
@@ -25,14 +25,14 @@ Open your Vercel URL → F12 Console → Should see "Agent ID configured: Yes"
 
 ### On This Machine
 ```bash
-cd vera-frontend
+cd paco-frontend
 # .env.local already exists with correct values
 npm run dev
 ```
 
 ### On Your Other Machine
 ```bash
-cd vera-frontend
+cd paco-frontend
 cp .env.local.example .env.local
 # Edit .env.local and fill in values
 npm install
@@ -44,7 +44,7 @@ npm run dev
 ## Backend Setup (One Time)
 
 ```bash
-cd vera-api
+cd paco-api
 source ../.venv/bin/activate
 alembic upgrade head
 uvicorn app.main:app --reload --port 8000
@@ -87,11 +87,11 @@ uvicorn app.main:app --reload --port 8000
 
 ## Important Files
 
-- `vera-frontend/.env.local` - Local environment variables (gitignored)
-- `vera-frontend/.env.local.example` - Template for setup
-- `vera-frontend/VERCEL_DEPLOYMENT.md` - Full Vercel guide
-- `vera-frontend/DEBUGGING_ELEVENLABS.md` - Frontend debugging
-- `vera-api/BACKEND_SETUP.md` - Backend setup guide
+- `paco-frontend/.env.local` - Local environment variables (gitignored)
+- `paco-frontend/.env.local.example` - Template for setup
+- `paco-frontend/VERCEL_DEPLOYMENT.md` - Full Vercel guide
+- `paco-frontend/DEBUGGING_ELEVENLABS.md` - Frontend debugging
+- `paco-api/BACKEND_SETUP.md` - Backend setup guide
 
 ---
 

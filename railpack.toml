@@ -1,8 +1,8 @@
-# Railpack Configuration for VERA FastAPI Backend
+# Railpack Configuration for PaCo FastAPI Backend
 # Ensures Railway builds the FastAPI app, not the Streamlit app
 
 [project]
-name = "vera-api"
+name = "paco-api"
 language = "python"
 
 [build]
@@ -10,12 +10,12 @@ language = "python"
 pythonVersion = "3.12"
 
 # Build commands
-# NOTE: Set Root Directory to "vera-api" in Railway dashboard
-# Then all commands run from within vera-api/
+# NOTE: Set Root Directory to "paco-api" in Railway dashboard
+# Then all commands run from within paco-api/
 installCommand = "pip install --upgrade pip && pip install -r requirements.txt"
 
 [start]
-# Start command (runs from vera-api/ if Root Directory is set correctly)
+# Start command (runs from paco-api/ if Root Directory is set correctly)
 command = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 
 [health]
@@ -32,7 +32,7 @@ PYTHONUNBUFFERED = "1"
 PYTHONDONTWRITEBYTECODE = "1"
 
 [watch]
-# Only trigger rebuilds for changes in these paths (relative to vera-api/ root)
+# Only trigger rebuilds for changes in these paths (relative to paco-api/ root)
 include = [
     "app/**/*.py",
     "requirements.txt",

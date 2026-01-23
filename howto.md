@@ -1,4 +1,4 @@
-# VERA - How to Run and Deploy
+# PaCo - How to Run and Deploy
 
 ## Local Development
 
@@ -11,7 +11,7 @@
   - ElevenLabs API key
   - Groq API key (optional)
 
-### Backend Setup (vera-api)
+### Backend Setup (paco-api)
 
 1. **Create and activate virtual environment:**
 ```bash
@@ -22,14 +22,14 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 2. **Install dependencies:**
 ```bash
-cd vera-api
+cd paco-api
 pip install -r requirements.txt
 ```
 
 3. **Configure environment variables:**
 Create `.env` file in project root:
 ```env
-DATABASE_URL=postgresql://user:password@localhost/vera
+DATABASE_URL=postgresql://user:password@localhost/paco
 SECRET_KEY=your-secret-key-min-32-chars
 OPENAI_API_KEY=sk-...
 GROQ_API_KEY=gsk_...
@@ -59,11 +59,11 @@ Backend available at: http://localhost:8000
 
 ---
 
-### Frontend Setup (vera-frontend)
+### Frontend Setup (paco-frontend)
 
 1. **Install dependencies:**
 ```bash
-cd vera-frontend
+cd paco-frontend
 npm install
 ```
 
@@ -88,7 +88,7 @@ Frontend available at: http://localhost:3000
 1. Open browser to http://localhost:3000
 2. Enter research ID (e.g., RID001-RID010 if seeded)
 3. Accept disclaimer
-4. Start chatting with VERA
+4. Start chatting with PaCo
 5. Audio should play automatically after first interaction
 
 **Troubleshooting:**
@@ -119,8 +119,8 @@ Vercel (Frontend) ←→ Railway (Backend) ←→ Neon (Database)
    - Go to [railway.app](https://railway.app)
    - Click "New Project"
    - Select "Deploy from GitHub repo"
-   - Choose `vera-api` repository
-   - Set Root Directory to `vera-api`
+   - Choose `paco-api` repository
+   - Set Root Directory to `paco-api`
 
 2. **Configure environment variables:**
    Go to Variables tab and add:
@@ -142,7 +142,7 @@ Vercel (Frontend) ←→ Railway (Backend) ←→ Neon (Database)
 
 4. **Get Railway URL:**
    - After deployment, copy the public URL
-   - Example: `https://vera-api-production.up.railway.app`
+   - Example: `https://paco-api-production.up.railway.app`
    - Note this URL for frontend configuration
 
 #### Updating Backend
@@ -173,15 +173,15 @@ Railway auto-deploys on push to main branch.
    - Go to [vercel.com](https://vercel.com)
    - Click "New Project"
    - Import from GitHub
-   - Select `vera-frontend` repository
-   - Root Directory: `vera-frontend`
+   - Select `paco-frontend` repository
+   - Root Directory: `paco-frontend`
    - Framework: Next.js (auto-detected)
 
 2. **Configure environment variables:**
    Go to Settings → Environment Variables and add:
    ```
-   NEXT_PUBLIC_API_URL=https://vera-api-production.up.railway.app/api/v1
-   NEXT_PUBLIC_WS_URL=wss://vera-api-production.up.railway.app/api/v1/chat/ws/chat
+   NEXT_PUBLIC_API_URL=https://paco-api-production.up.railway.app/api/v1
+   NEXT_PUBLIC_WS_URL=wss://paco-api-production.up.railway.app/api/v1/chat/ws/chat
    ```
 
    **Important:**
@@ -195,7 +195,7 @@ Railway auto-deploys on push to main branch.
 
 4. **Get Vercel URL:**
    - Copy the production URL
-   - Example: `https://vera-frontend.vercel.app`
+   - Example: `https://paco-frontend.vercel.app`
    - Add this URL to Railway CORS_ORIGINS
 
 #### Updating Frontend
@@ -262,14 +262,14 @@ Vercel auto-deploys on push to main branch.
 
 #### 4. Chat Functionality
 - [ ] Send a test message
-- [ ] VERA should respond with streaming text
+- [ ] PaCo should respond with streaming text
 - [ ] Check console for "Generating TTS for response" (backend logs)
 - [ ] Check console for "Received audio message" (frontend)
 
 #### 5. Audio Playback
 - [ ] Send message (triggers audio unlock)
 - [ ] Check console for "Audio enabled successfully"
-- [ ] Wait for VERA response
+- [ ] Wait for PaCo response
 - [ ] Audio should play automatically
 - [ ] Test 2-3 more messages to verify consistency
 
@@ -420,12 +420,12 @@ npm ls next
 ### Local Development
 ```bash
 # Backend
-cd vera-api
+cd paco-api
 source ../.venv/bin/activate
 uvicorn app.main:app --reload
 
 # Frontend
-cd vera-frontend
+cd paco-frontend
 npm run dev
 
 # Database

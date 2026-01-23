@@ -1,4 +1,4 @@
-# VERA Audio Implementation - Architectural Decisions
+# PaCo Audio Implementation - Architectural Decisions
 
 ## Decision Log
 
@@ -31,9 +31,9 @@ Need to deliver generated audio from backend to frontend for playback.
 - ⚠️ All-or-nothing delivery (no progressive streaming)
 
 **Implementation:**
-- Backend: [tts_service.py:74-78](vera-api/app/services/tts_service.py#L74-L78)
-- Backend: [chat.py:247-256](vera-api/app/api/endpoints/chat.py#L247-L256)
-- Frontend: [ChatInterface.tsx:50-61](vera-frontend/components/ChatInterface.tsx#L50-L61)
+- Backend: [tts_service.py:74-78](paco-api/app/services/tts_service.py#L74-L78)
+- Backend: [chat.py:247-256](paco-api/app/api/endpoints/chat.py#L247-L256)
+- Frontend: [ChatInterface.tsx:50-61](paco-frontend/components/ChatInterface.tsx#L50-L61)
 
 ---
 
@@ -106,8 +106,8 @@ const enableAudio = useCallback(() => {
 ```
 
 **Called on:**
-- First message send ([ChatInterface.tsx:190](vera-frontend/components/ChatInterface.tsx#L190))
-- Voice call start ([ChatInterface.tsx:286](vera-frontend/components/ChatInterface.tsx#L286))
+- First message send ([ChatInterface.tsx:190](paco-frontend/components/ChatInterface.tsx#L190))
+- Voice call start ([ChatInterface.tsx:286](paco-frontend/components/ChatInterface.tsx#L286))
 
 **Rationale:**
 - Complies with browser security policies
@@ -190,8 +190,8 @@ Need real-time bidirectional communication for chat and audio.
 - ⚠️ Head-of-line blocking (acceptable for chat)
 
 **Implementation:**
-- Backend: [chat.py:88-276](vera-api/app/api/endpoints/chat.py#L88-L276)
-- Frontend: [useWebSocket.ts](vera-frontend/hooks/useWebSocket.ts)
+- Backend: [chat.py:88-276](paco-api/app/api/endpoints/chat.py#L88-L276)
+- Frontend: [useWebSocket.ts](paco-frontend/hooks/useWebSocket.ts)
 
 ---
 

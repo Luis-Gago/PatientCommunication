@@ -1,4 +1,4 @@
-# 🚀 VERA Audio Fix - Quick Start Guide
+# 🚀 PaCo Audio Fix - Quick Start Guide
 
 ## What's the Problem?
 Audio works locally but not in production. Text displays but no voice plays.
@@ -14,13 +14,13 @@ Missing or incorrect environment variables in Vercel and Railway.
 
 **Railway URL:**
 1. Open https://railway.app/dashboard
-2. Click your `vera-api` project
-3. Copy the domain (e.g., `vera-api-production.up.railway.app`)
+2. Click your `paco-api` project
+3. Copy the domain (e.g., `paco-api-production.up.railway.app`)
 
 **Vercel URL:**
 1. Open https://vercel.com/dashboard
-2. Click your `vera-frontend` project
-3. Copy the domain (e.g., `vera-pad.vercel.app`)
+2. Click your `paco-frontend` project
+3. Copy the domain (e.g., `paco-pad.vercel.app`)
 
 **Write them down:**
 ```

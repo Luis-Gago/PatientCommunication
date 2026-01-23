@@ -1,4 +1,4 @@
-# 🎯 VERA Audio Fix - Implementation Summary
+# 🎯 PaCo Audio Fix - Implementation Summary
 
 ## Status: ✅ Diagnosis Complete - Ready for Implementation
 
@@ -95,7 +95,7 @@ Audio fix is complete when:
 - [ ] Console shows "WebSocket connected successfully"
 - [ ] Console shows "Audio enabled successfully"
 - [ ] Console shows "Received audio message: Audio data present"
-- [ ] Audio plays automatically after VERA responds
+- [ ] Audio plays automatically after PaCo responds
 - [ ] Works for multiple consecutive messages
 - [ ] No errors in browser console
 - [ ] Railway logs show "TTS generated successfully"
@@ -117,12 +117,12 @@ Audio fix is complete when:
 ├── scripts/
 │   ├── verify_deployment.sh   🤖 Automated testing
 │   └── check_env_vars.sh      🔑 Env var generator
-├── vera-api/                   🔙 Backend
+├── paco-api/                   🔙 Backend
 │   ├── app/
 │   │   ├── api/endpoints/chat.py        (Audio WebSocket)
 │   │   └── services/tts_service.py      (ElevenLabs TTS)
 │   └── railway.toml
-└── vera-frontend/              🎨 Frontend
+└── paco-frontend/              🎨 Frontend
     ├── components/
     │   └── ChatInterface.tsx            (Audio playback)
     └── hooks/
@@ -148,14 +148,14 @@ Browser receives and decodes Base64
     ↓
 HTML5 Audio element plays MP3
     ↓
-User hears VERA's voice! 🎵
+User hears PaCo's voice! 🎵
 ```
 
 **Key Components:**
-- Backend TTS: [vera-api/app/services/tts_service.py](vera-api/app/services/tts_service.py)
-- WebSocket Send: [vera-api/app/api/endpoints/chat.py:247-256](vera-api/app/api/endpoints/chat.py#L247-L256)
-- Frontend Playback: [vera-frontend/components/ChatInterface.tsx:50-61](vera-frontend/components/ChatInterface.tsx#L50-L61)
-- Autoplay Fix: [vera-frontend/components/ChatInterface.tsx:35-47](vera-frontend/components/ChatInterface.tsx#L35-L47)
+- Backend TTS: [paco-api/app/services/tts_service.py](paco-api/app/services/tts_service.py)
+- WebSocket Send: [paco-api/app/api/endpoints/chat.py:247-256](paco-api/app/api/endpoints/chat.py#L247-L256)
+- Frontend Playback: [paco-frontend/components/ChatInterface.tsx:50-61](paco-frontend/components/ChatInterface.tsx#L50-L61)
+- Autoplay Fix: [paco-frontend/components/ChatInterface.tsx:35-47](paco-frontend/components/ChatInterface.tsx#L35-L47)
 
 ---
 

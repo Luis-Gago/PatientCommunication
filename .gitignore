@@ -15,7 +15,7 @@ downloads/
 eggs/
 .eggs/
 lib/
-!vera-frontend/lib/  # Exception: Next.js lib directory
+!paco-frontend/lib/  # Exception: Next.js lib directory
 lib64/
 parts/
 sdist/
@@ -112,7 +112,7 @@ db/74fef158-da3e-4b88-9cf5-a099376e0885/index_metadata.pickle
 
 # LLM models and large files
 models/
-!vera-api/app/models/  # Exception: FastAPI database models
+!paco-api/app/models/  # Exception: FastAPI database models
 *.model
 *.bin
 *.h5
@@ -196,7 +196,7 @@ logs/
 yarn.lock
 
 # Research IDs (keep confidential)
-vera-api/scripts/RESEARCH_IDS_README.md
+paco-api/scripts/RESEARCH_IDS_README.md
  sources/AHA PAD_Fact_Sheet_Eng.txt
 sources/Endovascular techniques for lower extremity revascularization - UpToDate.txt
 sources/AHA PAD_Fact_Sheet_Eng.txt

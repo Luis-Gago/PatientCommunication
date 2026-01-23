@@ -1,4 +1,4 @@
-# VERA Production Deployment Setup Guide
+# PaCo Production Deployment Setup Guide
 
 ## ⚠️ IMMEDIATE ACTIONS REQUIRED
 
@@ -11,18 +11,18 @@ This guide will walk you through configuring your production environment to fix 
 ### A. Get Railway Backend URL
 
 1. Open [Railway Dashboard](https://railway.app/dashboard)
-2. Navigate to your `vera-api` project
+2. Navigate to your `paco-api` project
 3. Click on the service
 4. Go to **Settings** → **Networking**
-5. Copy the **Public Domain** (e.g., `vera-api-production.up.railway.app`)
+5. Copy the **Public Domain** (e.g., `paco-api-production.up.railway.app`)
 
 **Save this URL - you'll need it for Vercel configuration**
 
 ### B. Get Vercel Frontend URL (Optional - if already deployed)
 
 1. Open [Vercel Dashboard](https://vercel.com/dashboard)
-2. Navigate to your `vera-frontend` project
-3. Copy the **Production Domain** (e.g., `vera-pad.vercel.app`)
+2. Navigate to your `paco-frontend` project
+3. Copy the **Production Domain** (e.g., `paco.vercel.app`)
 
 **Save this URL - you'll need it for Railway configuration**
 
@@ -33,7 +33,7 @@ This guide will walk you through configuring your production environment to fix 
 ### Required Environment Variables
 
 1. Go to [Railway Dashboard](https://railway.app/dashboard)
-2. Select your `vera-api` project
+2. Select your `paco-api` project
 3. Go to **Variables** tab
 4. Add or verify these variables:
 
@@ -84,7 +84,7 @@ RAILWAY_ENVIRONMENT=production
 ### Required Environment Variables
 
 1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
-2. Select your `vera-frontend` project
+2. Select your `paco-frontend` project
 3. Go to **Settings** → **Environment Variables**
 4. Add these variables for **Production** environment:
 
@@ -100,8 +100,8 @@ NEXT_PUBLIC_WS_URL=wss://[YOUR-RAILWAY-URL]/api/v1/chat/ws/chat
 
 **Example with actual URL:**
 ```bash
-NEXT_PUBLIC_API_URL=https://vera-api-production.up.railway.app/api/v1
-NEXT_PUBLIC_WS_URL=wss://vera-api-production.up.railway.app/api/v1/chat/ws/chat
+NEXT_PUBLIC_API_URL=https://paco-api-production.up.railway.app/api/v1
+NEXT_PUBLIC_WS_URL=wss://paco-api-production.up.railway.app/api/v1/chat/ws/chat
 ```
 
 ### How to Add Each Variable:
@@ -207,7 +207,7 @@ NEXT_PUBLIC_WS_URL=wss://vera-api-production.up.railway.app/api/v1/chat/ws/chat
    ```
 
 5. **Check Audio Playback:**
-   - Wait for VERA's response to complete
+   - Wait for PaCo's response to complete
    - Audio should play automatically
    - Volume should be audible
    - Voice should be clear, female voice (Aria)
@@ -258,11 +258,11 @@ Open Railway → Deployments → Logs and look for:
 **Quick Fix:**
 ```bash
 # Correct format:
-wss://vera-api-production.up.railway.app/api/v1/chat/ws/chat
+wss://paco-api-production.up.railway.app/api/v1/chat/ws/chat
 
 # Wrong formats:
-ws://vera-api-production.up.railway.app/api/v1/chat/ws/chat  # ❌ ws not wss
-wss://vera-api-production.up.railway.app:443/api/v1/chat/ws/chat  # ❌ don't specify port
+ws://paco-api-production.up.railway.app/api/v1/chat/ws/chat  # ❌ ws not wss
+wss://paco-api-production.up.railway.app:443/api/v1/chat/ws/chat  # ❌ don't specify port
 ```
 
 ### Issue: "CORS policy blocked"
@@ -280,10 +280,10 @@ wss://vera-api-production.up.railway.app:443/api/v1/chat/ws/chat  # ❌ don't sp
 **Correct Examples:**
 ```bash
 # Single origin:
-CORS_ORIGINS=https://vera-pad.vercel.app
+CORS_ORIGINS=https://paco.vercel.app
 
 # Multiple origins (comma-separated):
-CORS_ORIGINS=https://vera-pad.vercel.app,http://localhost:3000
+CORS_ORIGINS=https://paco.vercel.app,http://localhost:3000
 ```
 
 ### Issue: "No audio plays"
@@ -378,7 +378,7 @@ Before considering the issue resolved, verify ALL of these:
 ### Audio Functionality
 - [ ] Console shows "Audio enabled successfully" after first interaction
 - [ ] Console shows "Received audio message: Audio data present"
-- [ ] Audio plays automatically after VERA responds
+- [ ] Audio plays automatically after PaCo responds
 - [ ] Audio quality is clear (female voice)
 - [ ] Works for multiple consecutive messages
 - [ ] Works in Chrome browser
@@ -402,7 +402,7 @@ curl https://[YOUR-RAILWAY-URL]/health
 
 ### Check Frontend Build:
 ```bash
-cd vera-frontend
+cd paco-frontend
 npm run build
 ```
 
