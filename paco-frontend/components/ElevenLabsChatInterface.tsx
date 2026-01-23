@@ -440,7 +440,7 @@ export default function ElevenLabsChatInterface({
                 />
               </svg>
             </div>
-            <p className="text-sm font-medium">Ask PaCo about Peripheral Artery Disease (PAD)</p>
+            <p className="text-sm font-medium">Tell PaCo about the medications you are taking.</p>
             <p className="text-xs mt-2">
               {isCallActive
                 ? '🎤 Listening... speak your question'

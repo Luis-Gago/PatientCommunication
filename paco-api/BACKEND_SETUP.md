@@ -33,7 +33,7 @@ Added: `POST /api/v1/chat/save-message`
 {
   "research_id": "RID001",
   "role": "user",
-  "content": "What is PAD?",
+  "content": "I am taking metformin for my diabetes.",
   "timestamp": "2025-01-08T16:00:00Z",
   "provider": "elevenlabs",
   "elevenlabs_conversation_id": "conv_abc123",

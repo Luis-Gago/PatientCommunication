@@ -15,7 +15,7 @@
 
 1. **Create and activate virtual environment:**
 ```bash
-cd /Users/david/GitHub/pad
+cd /Users/luisgago/GitHub/PatientCommunication
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```

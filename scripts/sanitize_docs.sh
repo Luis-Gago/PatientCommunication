@@ -30,12 +30,11 @@ FILES=(
 )
 
 # Backup directory
-BACKUP_DIR="/Users/david/GitHub/pad/.docs_backup_$(date +%Y%m%d_%H%M%S)"
+BACKUP_DIR="/Users/luisgago/GitHub/PatientCommunication/.docs_backup_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$BACKUP_DIR"
 
 for file in "${FILES[@]}"; do
-    FULL_PATH="/Users/david/GitHub/pad/$file"
-
+    FULL_PATH="/Users/luisgago/GitHub/PatientCommunication/$file"
     if [ -f "$FULL_PATH" ]; then
         echo "Sanitizing: $file"
 

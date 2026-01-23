@@ -105,7 +105,7 @@ Audio fix is complete when:
 ## 📊 Project Structure
 
 ```
-/Users/david/GitHub/pad/
+/Users/luisgago/GitHub/PatientCommunication/
 ├── QUICK_START.md              ⭐ START HERE - 10 min fix
 ├── DEPLOYMENT_SETUP.md         📚 Detailed guide
 ├── README_AUDIO_FIX.md         📄 This file

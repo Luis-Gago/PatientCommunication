@@ -102,13 +102,9 @@ target/
 # Sphinx documentation
 docs/_build/
 
-# Streamlit cache and logs
-
-*/secrets.toml
+# Misc artifacts
 cache*
 .aider*
-db/chroma.sqlite3
-db/74fef158-da3e-4b88-9cf5-a099376e0885/index_metadata.pickle
 
 # LLM models and large files
 models/
@@ -197,19 +193,15 @@ yarn.lock
 
 # Research IDs (keep confidential)
 paco-api/scripts/RESEARCH_IDS_README.md
- sources/AHA PAD_Fact_Sheet_Eng.txt
-sources/Endovascular techniques for lower extremity revascularization - UpToDate.txt
-sources/AHA PAD_Fact_Sheet_Eng.txt
-sources/gornik-et-al-2024-2024-acc-aha-aacvpr-apma-abc-scai-svm-svn-svs-sir-vess-guideline-for-the-management-of-lower (1).txt
-sources/Lower extremity peripheral artery disease_ Clinical features and diagnosis - UpToDate.txt
-sources/Lower extremity surgical bypass techniques - UpToDate.txt
-sources/Management of chronic limb-threatening ischemia - UpToDate.txt
-sources/Management of claudication due to peripheral artery disease - UpToDate.txt
-sources/Peripheral Arterial Disease - StatPearls - NCBI Bookshelf.txt
-sources/Peripheral artery disease_ Prevalence and risk factors - UpToDate.txt
-sources/What-is-Peripheral-Artery-Disease AHA.txt
-PAD EMMI Video transcript.txt
-last_response.mp3
+
+# Source documents
+sources/
+
+# Python cache
 .ruff_cache
+
+# Documentation backups
 .docs_backup_*/
+
+# Development notes
 CLAUDE.md

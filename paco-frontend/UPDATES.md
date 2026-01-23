@@ -159,7 +159,7 @@ PaCo's gray bubbles remain the same: #E5E7EB (gray-200)
 3. Click the **green phone icon** (top right)
 4. Grant microphone permissions
 5. Icon turns **red**, timer starts
-6. Speak: "What is PAD?"
+6. Speak: "I am taking metformin for my diabetes."
 7. Watch timer count up
 8. See yellow warning at 4:00
 9. Call auto-ends at 5:00

@@ -125,7 +125,7 @@ After redeployment, check the build logs:
 1. **Clone the repo** (if needed):
    ```bash
    git clone <your-repo-url>
-   cd pad/paco-frontend
+   cd PatientCommunication/paco-frontend
    ```
 
 2. **Copy environment template**:

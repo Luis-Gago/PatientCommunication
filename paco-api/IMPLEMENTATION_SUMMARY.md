@@ -165,7 +165,7 @@ All tables prefixed with `paco_` to avoid conflicts with existing Streamlit app:
 
 ```bash
 cd paco-api
-source ../.venv/bin/activate  # Use existing venv from pad/
+source ../.venv/bin/activate  # Use existing venv from PatientCommunication/
 uvicorn app.main:app --reload --port 8000
 ```
 

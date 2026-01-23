@@ -20,7 +20,7 @@ Missing or incorrect environment variables in Vercel and Railway.
 **Vercel URL:**
 1. Open https://vercel.com/dashboard
 2. Click your `paco-frontend` project
-3. Copy the domain (e.g., `paco-pad.vercel.app`)
+3. Copy the domain (e.g., `paco.vercel.app`)
 
 **Write them down:**
 ```
@@ -166,7 +166,7 @@ Before considering it fixed:
 
 ### Use the verification script:
 ```bash
-cd /Users/david/GitHub/pad
+cd /Users/luisgago/GitHub/PatientCommunication
 ./scripts/verify_deployment.sh
 ```
 
@@ -178,7 +178,7 @@ cd /Users/david/GitHub/pad
 ### Manual verification:
 ```bash
 # Test backend health
-curl https://[YOUR-RAILWAY-URL]/health
+curl https://paco.up.railway.app/health
 
 # Should return: {"status":"healthy"}
 ```

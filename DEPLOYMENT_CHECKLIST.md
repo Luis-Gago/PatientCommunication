@@ -21,7 +21,7 @@ Quick checklist to deploy PaCo with CI/CD in 15 minutes.
 
 1. [ ] Sign up at [railway.app](https://railway.app) with GitHub
 2. [ ] Create new project → Deploy from GitHub repo
-3. [ ] Select your `pad` repository
+3. [ ] Select your `medication adherence` repository
 4. [ ] **CRITICAL**: Configure service settings:
    - [ ] **Root Directory**: Set to `paco-api` (prevents Railway from detecting Streamlit app)
    - [ ] Builder: Should auto-detect "railpack"
@@ -38,7 +38,7 @@ Quick checklist to deploy PaCo with CI/CD in 15 minutes.
 ## ☐ Deploy Frontend - Vercel (5 min)
 
 1. [ ] Sign up at [vercel.com](https://vercel.com) with GitHub
-2. [ ] Import project → Select your `pad` repository
+2. [ ] Import project → Select your `medication adherence` repository
 3. [ ] Configure build:
    - [ ] Root Directory: `paco-frontend`
    - [ ] Framework: Next.js (auto-detected)

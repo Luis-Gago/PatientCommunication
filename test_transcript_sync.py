@@ -11,7 +11,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables FIRST before importing app modules
-load_dotenv('/Users/david/GitHub/pad/paco-api/.env')
+load_dotenv('/Users/luisgago/GitHub/PatientCommunication/paco-api/.env')
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'paco-api'))

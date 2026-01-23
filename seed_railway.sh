@@ -3,7 +3,7 @@
 # Seed research IDs on Railway
 # Usage: ./seed_railway.sh YOUR_RAILWAY_API_URL [ADMIN_PASSWORD]
 
-RAILWAY_URL="${1:-https://paco-pad.up.railway.app}"
+RAILWAY_URL="${1:-https://paco.up.railway.app}"
 ADMIN_PASSWORD="${2:-}"
 
 if [ -z "$ADMIN_PASSWORD" ]; then

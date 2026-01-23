@@ -39,7 +39,7 @@ You should see an iPhone device frame with the Research ID entry screen.
 - You'll receive a JWT token and proceed to chat
 
 #### Screen 3: Chat with PaCo
-- Type a message like "What is PAD?" and press Enter
+- Type a message like "I am currently taking metformin for my diabetes." and press Enter
 - Watch as PaCo responds with streaming text (character by character)
 - Listen to the automatic text-to-speech audio playback
 
@@ -78,7 +78,7 @@ Click the microphone button in the chat header:
 
 Check if Next.js is running:
 ```bash
-cd /Users/david/GitHub/pad/paco-frontend
+cd /Users/luisgago/GitHub/PatientCommunication/paco-frontend
 npm run dev
 ```
 
@@ -86,7 +86,7 @@ npm run dev
 
 Check if backend is running:
 ```bash
-cd /Users/david/GitHub/pad/paco-api
+cd /Users/luisgago/GitHub/PatientCommunication/paco-api
 source ../.venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 ```

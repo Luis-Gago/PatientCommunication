@@ -78,7 +78,7 @@ http://localhost:3000
 ## Project Structure
 
 ```
-/Users/david/GitHub/pad/
+/Users/david/GitHub/PatientCommunication/
 ├── paco-api/                  # FastAPI Backend
 │   ├── app/
 │   │   ├── api/endpoints/
@@ -121,14 +121,14 @@ Navigate to: http://localhost:3000
 
 ### Step 4: Chat with PaCo
 **Text Chat:**
-- Type: "What is PAD?"
+- Type: "I am currently taking metformin."
 - Press Enter
 - Watch streaming response
 
 **Voice Chat:**
 - Click microphone button (top right)
 - Grant permissions if prompted
-- Speak: "What causes peripheral artery disease?"
+- Speak: "I am having trouble remembering to take my medication."
 - See transcription and response
 
 ## Key Features in Action
@@ -226,21 +226,21 @@ NEXT_PUBLIC_WS_URL=ws://localhost:8000/api/v1/chat/ws/chat
 
 ### Start Backend
 ```bash
-cd /Users/david/GitHub/pad/paco-api
+cd /Users/david/GitHub/PatientCommunication/paco-api
 source ../.venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 ```
 
 ### Start Frontend
 ```bash
-cd /Users/david/GitHub/pad/paco-frontend
+cd /Users/david/GitHub/PatientCommunication/paco-frontend
 npm run dev
 ```
 
 ### Run Tests
 ```bash
 # Backend API tests
-cd /Users/david/GitHub/pad/paco-api
+cd /Users/david/GitHub/PatientCommunication/paco-api
 python test_api.py
 
 # Frontend (manual testing in browser)
@@ -357,14 +357,14 @@ open http://localhost:3000
 
 ### Frontend Won't Load
 ```bash
-cd /Users/david/GitHub/pad/paco-frontend
+cd /Users/david/GitHub/PatientCommunication/paco-frontend
 npm install
 npm run dev
 ```
 
 ### Backend Not Responding
 ```bash
-cd /Users/david/GitHub/pad/paco-api
+cd /Users/david/GitHub/PatientCommunication/paco-api
 source ../.venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 ```

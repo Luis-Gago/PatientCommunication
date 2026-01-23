@@ -26,7 +26,7 @@ Complete guide to deploy PaCo frontend and backend with automatic CI/CD from Git
 
 1. Click "New Project"
 2. Select "Deploy from GitHub repo"
-3. Choose your repository: `pad`
+3. Choose your repository: `medication adherence`
 4. Railway will auto-detect the Python app
 
 ### Step 3: Configure Service
@@ -98,7 +98,7 @@ Railway automatically enables CI/CD! Every push to your `main` branch will trigg
 ### Step 2: Import Project
 
 1. Click "Add New..." → "Project"
-2. Import your GitHub repository: `pad`
+2. Import your GitHub repository: `PatientCommunication`
 3. Vercel will auto-detect Next.js
 
 ### Step 3: Configure Build Settings
@@ -178,7 +178,7 @@ Once set up, your workflow is:
 
 ```bash
 # 1. Make changes locally
-cd /Users/david/GitHub/pad
+cd /Users/david/GitHub/PatientCommunication
 # ... edit files ...
 
 # 2. Commit changes

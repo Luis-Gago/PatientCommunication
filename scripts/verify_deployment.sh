@@ -38,7 +38,7 @@ print_info() {
 echo "Please provide your deployment URLs:"
 echo ""
 read -p "Railway Backend URL (e.g., paco-api-production.up.railway.app): " RAILWAY_URL
-read -p "Vercel Frontend URL (e.g., paco-pad.vercel.app): " VERCEL_URL
+read -p "Vercel Frontend URL (e.g., paco.vercel.app): " VERCEL_URL
 
 echo ""
 echo "================================================"

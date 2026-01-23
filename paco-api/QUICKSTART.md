@@ -11,7 +11,7 @@
 ### 1. Activate Virtual Environment
 
 ```bash
-cd /Users/david/GitHub/pad
+cd /Users/luisgago/GitHub/PatientCommunication
 source .venv/bin/activate
 ```
 
@@ -40,7 +40,7 @@ pip install -r requirements.txt
 ### Start the API Server
 
 ```bash
-cd /Users/david/GitHub/pad/paco-api
+cd /Users/luisgago/GitHub/PatientCommunication/paco-api
 source ../venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 ```
@@ -101,7 +101,7 @@ curl -X POST http://localhost:8000/api/v1/chat/message \
   -d '{
     "research_id": "RID001",
     "conversation_id": "conv_test_001",
-    "content": "What is PAD?",
+    "content": "I am taking metformin for my diabetes.",
     "model": "gpt-4o"
   }'
 ```
@@ -169,7 +169,7 @@ ADMIN_PASSWORD=phPH3sA!                # Admin endpoints
 **Error**: `ModuleNotFoundError`
 ```bash
 # Make sure you're in the right directory
-cd /Users/david/GitHub/pad/paco-api
+cd /Users/luisgago/GitHub/PatientCommunication/paco-api
 
 # Activate venv
 source ../venv/bin/activate
@@ -245,7 +245,7 @@ cp ../new_prompt.py app/prompts.py
 
 ```bash
 # Start server
-cd /Users/david/GitHub/pad/paco-api
+cd /Users/luisgago/GitHub/PatientCommunication/paco-api
 source ../.venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 
