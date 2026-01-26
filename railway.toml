@@ -11,10 +11,6 @@ healthcheckTimeout = 100
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 
-# Python-specific settings
-PYTHONUNBUFFERED = "1"
-PYTHONDONTWRITEBYTECODE = "1"
-
 [watch]
 # Only trigger rebuilds for changes in these paths (relative to paco-api/ root)
 include = [
