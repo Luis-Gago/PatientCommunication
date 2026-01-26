@@ -9,7 +9,7 @@ import os
 import traceback
 
 from app.core.config import get_settings
-from app.api.endpoints import auth, chat, admin
+from app.api.endpoints import auth, chat, admin, medication_analysis
 
 settings = get_settings()
 
@@ -66,6 +66,7 @@ async def preflight_handler(rest_of_path: str):
 app.include_router(auth.router, prefix=f"{settings.API_V1_PREFIX}/auth", tags=["auth"])
 app.include_router(chat.router, prefix=f"{settings.API_V1_PREFIX}/chat", tags=["chat"])
 app.include_router(admin.router, prefix=f"{settings.API_V1_PREFIX}/admin", tags=["admin"])
+app.include_router(medication_analysis.router, prefix=f"{settings.API_V1_PREFIX}/medication-analysis", tags=["medication-analysis"])
 
 # Mount audio files directory
 if os.path.exists("audio_files"):
