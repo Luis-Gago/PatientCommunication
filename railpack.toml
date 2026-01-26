@@ -1,31 +1,15 @@
-# Railpack Configuration for PaCo FastAPI Backend
-# Ensures Railway builds the FastAPI app, not the Streamlit app
-
-[project]
-name = "paco-api"
-language = "python"
+# Railway Configuration for PaCo FastAPI Backend
+# NOTE: Set Root Directory to "paco-api" in Railway dashboard
 
 [build]
-# Python version (must be 3.12 or lower for embedchain compatibility)
-pythonVersion = "3.12"
+builder = "railpack"
 
-# Build commands
-# NOTE: Set Root Directory to "paco-api" in Railway dashboard
-# Then all commands run from within paco-api/
-installCommand = "pip install --upgrade pip && pip install -r requirements.txt"
-
-[start]
-# Start command (runs from paco-api/ if Root Directory is set correctly)
-command = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
-
-[health]
-# Health check configuration
-path = "/health"
-timeout = 100
-
-[environment]
-# Environment type
-type = "production"
+[deploy]
+startCommand = "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
 
 # Python-specific settings
 PYTHONUNBUFFERED = "1"
