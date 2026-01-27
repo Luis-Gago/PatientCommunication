@@ -341,27 +341,43 @@ curl https://your-app.up.railway.app/health
 
 **Error: `ModuleNotFoundError: No module named 'app.models'`**
 
-This is a PYTHONPATH issue. Fix it by:
+✅ **FIXED** - This issue is now resolved with the `start.sh` script.
 
-1. **Set in Railway UI** (Recommended):
-   - Go to Railway project → Variables
-   - Add: `PYTHONPATH` = `/app`
-   - Redeploy
+The repository includes a `paco-api/start.sh` startup script that:
+- Properly sets PYTHONPATH before running migrations
+- Includes error handling and debug output
+- Ensures migrations run before starting the server
 
-2. **Verify railway.toml** has the correct command:
+**If you still see this error:**
+
+1. **Ensure start.sh is in your repo**:
+   ```bash
+   ls -la paco-api/start.sh
+   # Should exist and be executable (chmod +x)
+   ```
+
+2. **Verify railway.toml uses the script**:
    ```toml
-   startCommand = "cd /app && export PYTHONPATH=$(pwd):$PYTHONPATH && alembic upgrade head && ..."
+   [deploy]
+   startCommand = "bash start.sh"
    ```
 
-3. **Check working directory** in Railway logs:
-   ```bash
-   # The app should be running from /app directory
-   railway logs | grep "pwd"
+3. **Check Railway Settings**:
+   - Go to Settings → General
+   - Verify "Root Directory" = `paco-api`
+   - Verify PYTHONPATH environment variable = `/app`
+
+4. **Check Railway logs** for start.sh debug output:
+   ```
+   Working directory: /app
+   PYTHONPATH: /app
+   Running Alembic migrations...
+   Migrations completed successfully
    ```
 
-4. **Manual migration** via Railway CLI (if needed):
+5. **If needed, manually trigger migration**:
    ```bash
-   railway run bash -c "cd /app && export PYTHONPATH=/app && alembic upgrade head"
+   railway run bash start.sh
    ```
 
 #### CORS Errors
