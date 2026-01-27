@@ -15,7 +15,7 @@ class LLMService:
     """Service for interacting with various LLM providers"""
 
     def __init__(self):
-        self.openai_client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+        self.openai_client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY) if settings.OPENAI_API_KEY else None
         self.groq_client = Groq(api_key=settings.GROQ_API_KEY)
 
     def _get_client_and_config(self, model: str) -> tuple:
@@ -26,9 +26,13 @@ class LLMService:
             return "groq", self.groq_client, {"temperature": 0.5}
         elif model == "o3-mini":
             # o3-mini doesn't support temperature parameter
+            if not self.openai_client:
+                raise ValueError("OpenAI API key not configured but OpenAI model requested")
             return "openai", self.openai_client, {}
         else:
             # Default to OpenAI (gpt-4o, gpt-4o-mini, etc.)
+            if not self.openai_client:
+                raise ValueError("OpenAI API key not configured but OpenAI model requested")
             return "openai", self.openai_client, {"temperature": 0.5}
 
     async def stream_chat_completion(
