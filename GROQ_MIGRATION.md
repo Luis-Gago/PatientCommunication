@@ -56,7 +56,7 @@ Your `.env` file already has the GROQ_API_KEY configured, so you're ready to go!
 
 2. **Keep** (already configured):
    ```bash
-   GROQ_API_KEY=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
+   GROQ_API_KEY=gsk_...
    ```
 
 That's it! The migration is complete.
