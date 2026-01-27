@@ -1,31 +1,12 @@
 # Railway Configuration for PaCo FastAPI Backend
-# NOTE: Set Root Directory to "paco-api" in Railway dashboard
+# Set Root Directory to "paco-api" in Railway dashboard Settings
 
 [build]
-builder = "railpack"
+builder = "nixpacks"
 
 [deploy]
-startCommand = "python -c 'import sys; print(\"Python:\", sys.version)' && cd /app && python -m alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT --log-level debug"
+startCommand = "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 healthcheckPath = "/health"
 healthcheckTimeout = 100
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
-
-[watch]
-# Only trigger rebuilds for changes in these paths (relative to paco-api/ root)
-include = [
-    "app/**/*.py",
-    "requirements.txt",
-    "alembic.ini",
-    "alembic/**/*.py"
-]
-
-# Ignore these paths
-exclude = [
-    "__pycache__/**",
-    "*.pyc",
-    "alembic/versions/**",
-    "audio_files/**",
-    ".env",
-    "*.log"
-]

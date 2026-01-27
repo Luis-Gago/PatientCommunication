@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import IPhoneFrame from '@/components/IPhoneFrame';
 import ResearchIDScreen from '@/components/ResearchIDScreen';
 import DisclaimerScreen from '@/components/DisclaimerScreen';
 import ElevenLabsWidget from '@/components/ElevenLabsWidget';
@@ -73,21 +72,23 @@ export default function Home() {
   };
 
   return (
-    <IPhoneFrame>
-      {screen === 'research-id' && (
-        <ResearchIDScreen onValidated={handleResearchIDValidated} />
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {screen === 'research-id' && (
+          <ResearchIDScreen onValidated={handleResearchIDValidated} />
+        )}
 
-      {screen === 'disclaimer' && researchId && (
-        <DisclaimerScreen
-          researchId={researchId}
-          onAcknowledged={handleDisclaimerAcknowledged}
-        />
-      )}
+        {screen === 'disclaimer' && researchId && (
+          <DisclaimerScreen
+            researchId={researchId}
+            onAcknowledged={handleDisclaimerAcknowledged}
+          />
+        )}
 
-      {screen === 'chat' && researchId && token && (
-        <ElevenLabsWidget researchId={researchId} token={token} onLogout={handleLogout} />
-      )}
-    </IPhoneFrame>
+        {screen === 'chat' && researchId && token && (
+          <ElevenLabsWidget researchId={researchId} token={token} onLogout={handleLogout} />
+        )}
+      </div>
+    </div>
   );
 }

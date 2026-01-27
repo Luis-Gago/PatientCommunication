@@ -6,9 +6,9 @@ A FastAPI-based backend for the PaCo P.A.D. educational chatbot, supporting mult
 
 - **Multi-user support** with research ID-based authentication
 - **JWT token-based sessions**
-- **WebSocket streaming** for real-time chat responses
-- **Multiple LLM providers** (OpenAI GPT-4o/o3-mini, Groq Llama/Gemma)
-- **Text-to-speech** via ElevenLabs (same voice as original PaCo)
+- **ElevenLabs Conversational AI** for natural voice interactions
+- **Medication adherence analysis** via OpenAI GPT-4
+- **Text-to-speech** via ElevenLabs (integrated in conversational AI)
 - **Disclaimer acknowledgment flow**
 - **Neon PostgreSQL** for conversation persistence
 - **Admin dashboard** for managing research IDs
@@ -16,14 +16,14 @@ A FastAPI-based backend for the PaCo P.A.D. educational chatbot, supporting mult
 ## Architecture
 
 ```
-Frontend (React/Next.js - iPhone Messages UI)
-    ↓ WebSocket / REST API
-FastAPI Backend
+Frontend (Next.js - ElevenLabs Widget)
+    ↓ REST API
+FastAPI Backend (Railway)
     ├─ JWT Authentication
     ├─ Research ID Validation
-    ├─ LLM Streaming (OpenAI, Groq)
-    ├─ Text-to-Speech (ElevenLabs)
-    └─ Neon PostgreSQL Database
+    ├─ Medication Analysis (OpenAI GPT-4)
+    ├─ Message Sync (ElevenLabs)
+    └─ Neon PostgreSQL Database (Free)
 ```
 
 ## Setup
@@ -48,10 +48,15 @@ cp .env.example .env
 
 ### 3. Database Setup
 
-This project uses **Neon PostgreSQL** (serverless Postgres). Get your connection string from https://console.neon.tech and add it to your `.env` file.
+This project uses **Neon PostgreSQL** (free serverless PostgreSQL). 
+
+1. Go to https://console.neon.tech and create a free account
+2. Create a new project
+3. Copy your connection string
+4. Add it to your `.env` file
 
 ```bash
-# Run migrations to create tables in Neon
+# Run migrations to create tables
 alembic upgrade head
 ```
 
