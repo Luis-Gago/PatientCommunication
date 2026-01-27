@@ -77,14 +77,14 @@ builder = "nixpacks"
 buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-startCommand = "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+startCommand = "export PYTHONPATH=/app:$PYTHONPATH && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 ```
 
 **Procfile** (optional backup)
 ```
-web: alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+web: export PYTHONPATH=/app:$PYTHONPATH && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
 ```
 
 **runtime.txt**
