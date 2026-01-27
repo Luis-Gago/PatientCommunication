@@ -77,14 +77,14 @@ builder = "nixpacks"
 buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-startCommand = "export PYTHONPATH=/app:$PYTHONPATH && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+startCommand = "cd /app && export PYTHONPATH=$(pwd):$PYTHONPATH && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 ```
 
 **Procfile** (optional backup)
 ```
-web: export PYTHONPATH=/app:$PYTHONPATH && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+web: cd /app && export PYTHONPATH=$(pwd):$PYTHONPATH && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
 ```
 
 **runtime.txt**
@@ -339,13 +339,30 @@ curl https://your-app.up.railway.app/health
 
 #### Migrations Not Running
 
-```bash
-# Check Railway logs
-# Look for: "alembic upgrade head"
+**Error: `ModuleNotFoundError: No module named 'app.models'`**
 
-# Manual migration via Railway CLI
-railway run alembic upgrade head
-```
+This is a PYTHONPATH issue. Fix it by:
+
+1. **Set in Railway UI** (Recommended):
+   - Go to Railway project → Variables
+   - Add: `PYTHONPATH` = `/app`
+   - Redeploy
+
+2. **Verify railway.toml** has the correct command:
+   ```toml
+   startCommand = "cd /app && export PYTHONPATH=$(pwd):$PYTHONPATH && alembic upgrade head && ..."
+   ```
+
+3. **Check working directory** in Railway logs:
+   ```bash
+   # The app should be running from /app directory
+   railway logs | grep "pwd"
+   ```
+
+4. **Manual migration** via Railway CLI (if needed):
+   ```bash
+   railway run bash -c "cd /app && export PYTHONPATH=/app && alembic upgrade head"
+   ```
 
 #### CORS Errors
 
