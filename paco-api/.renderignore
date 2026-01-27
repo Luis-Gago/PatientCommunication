@@ -1,0 +1,57 @@
+# Render ignore patterns
+# Files that don't need to be uploaded to Render
+
+# Railway-specific files (not needed for Render)
+railway.toml
+RAILWAY_*.md
+Procfile
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Documentation (deploy only essential docs)
+README.md
+ARCHITECTURE.md
+COSTS.md
+GROQ_MIGRATION.md
+LOCAL_SETUP.md
+REFACTORING_SUMMARY.md
+
+# Local environment
+.env.local
+.env.*.local
+
+# Audio files (if not needed in production)
+audio_files/
+
+# Scripts (keep only deployment scripts)
+scripts/
+fix_alembic.py
+verify_medication_setup.py
+run_migration.sh
+start.sh
