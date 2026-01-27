@@ -13,6 +13,13 @@ echo "PYTHONPATH: $PYTHONPATH"
 echo "Python version: $(python --version)"
 echo "Contents of /app:"
 ls -la /app
+echo ""
+echo "Contents of /app/app:"
+ls -la /app/app 2>&1 || echo "app directory not found!"
+echo ""
+echo "Python can find app module:"
+python -c "import sys; sys.path.insert(0, '/app'); from app.models.database import ResearchID; print('✓ YES - app.models.database import successful')" 2>&1 || echo "✗ NO - import failed"
+echo ""
 
 # Run database migrations
 echo "Running Alembic migrations..."
