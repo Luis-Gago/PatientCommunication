@@ -6,24 +6,25 @@ import os
 import sys
 
 # Ensure the app module can be imported
-# Try multiple approaches to handle both local and Railway/production environments
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)  # This is /app (paco-api root)
+# This handles both local development and Railway/production environments
+current_dir = os.path.dirname(os.path.abspath(__file__))  # /app/alembic
+parent_dir = os.path.dirname(current_dir)  # /app (paco-api root where 'app' module lives)
 
-# Add parent directory first (for Railway/production where we're in /app)
-if parent_dir not in sys.path:
-    sys.path.insert(0, parent_dir)
+# Critical: Insert parent directory at position 0 so 'app' module can be found
+sys.path.insert(0, parent_dir)
 
-# Also ensure current working directory is in path
-cwd = os.getcwd()
-if cwd not in sys.path:
-    sys.path.insert(0, cwd)
+# Also try common Railway paths
+for potential_path in ['/app', os.getcwd()]:
+    if potential_path not in sys.path and os.path.exists(potential_path):
+        sys.path.insert(0, potential_path)
 
-# Debug output for troubleshooting
-print(f"DEBUG - Current dir: {current_dir}")
-print(f"DEBUG - Parent dir: {parent_dir}")
-print(f"DEBUG - CWD: {cwd}")
-print(f"DEBUG - sys.path: {sys.path[:3]}")
+# Debug output for troubleshooting Railway deployment
+print(f"DEBUG - Alembic current dir: {current_dir}")
+print(f"DEBUG - Parent dir (should contain 'app' module): {parent_dir}")
+print(f"DEBUG - Current working directory: {os.getcwd()}")
+print(f"DEBUG - sys.path (first 5): {sys.path[:5]}")
+print(f"DEBUG - 'app' directory exists at parent_dir: {os.path.exists(os.path.join(parent_dir, 'app'))}")
+print(f"DEBUG - PYTHONPATH env: {os.environ.get('PYTHONPATH', 'NOT SET')}")
 
 from app.db.base import Base
 from app.models.database import ResearchID, UserSession, DisclaimerAcknowledgment, Conversation

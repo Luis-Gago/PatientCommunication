@@ -10,3 +10,8 @@ healthcheckPath = "/health"
 healthcheckTimeout = 100
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
+
+# Critical: Set PYTHONPATH so alembic can find the app module
+[[deploy.environmentVariables]]
+name = "PYTHONPATH"
+value = "/app:$PYTHONPATH"
