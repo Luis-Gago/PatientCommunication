@@ -5,7 +5,7 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "cd /app && export PYTHONPATH=$(pwd):$PYTHONPATH && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+startCommand = "sh -c 'export PYTHONPATH=/app:$PYTHONPATH && cd /app && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT'"
 healthcheckPath = "/health"
 healthcheckTimeout = 100
 restartPolicyType = "on_failure"
