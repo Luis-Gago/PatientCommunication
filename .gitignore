@@ -106,9 +106,7 @@ docs/_build/
 cache*
 .aider*
 
-# LLM models and large files
-models/
-!paco-api/app/models/  # Exception: FastAPI database models
+# LLM models and large binary files (keep file types only, not directories)
 *.model
 *.bin
 *.h5
