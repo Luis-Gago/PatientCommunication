@@ -5,7 +5,7 @@ from app.models.database import (
     UserSession,
     DisclaimerAcknowledgment,
     Conversation,
-    MedicationAdherence
+    MedicationAdherenceAnalysis
 )
 
 __all__ = [
@@ -13,5 +13,5 @@ __all__ = [
     "UserSession", 
     "DisclaimerAcknowledgment",
     "Conversation",
-    "MedicationAdherence"
+    "MedicationAdherenceAnalysis"
 ]
