@@ -5,8 +5,11 @@ from alembic import context
 import os
 import sys
 
-# Add parent directory to path
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+# Add parent directory to path to ensure app module can be imported
+# This resolves to paco-api/ directory in both local and Railway environments
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
 from app.db.base import Base
 from app.models.database import ResearchID, UserSession, DisclaimerAcknowledgment, Conversation
