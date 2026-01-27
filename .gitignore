@@ -14,8 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-!paco-frontend/lib/  # Exception: Next.js lib directory
+paco-api/lib/
 lib64/
 parts/
 sdist/
