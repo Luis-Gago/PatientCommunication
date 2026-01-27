@@ -106,13 +106,6 @@ docs/_build/
 cache*
 .aider*
 
-# LLM models and large binary files (keep file types only, not directories)
-*.model
-*.bin
-*.h5
-*.ckpt
-*.pt
-
 # Custom rule for personal configurations
 config.yaml
 
