@@ -24,9 +24,8 @@ class Settings(BaseSettings):
     DATABASE_URL: str
 
     # LLM API Keys
-    OPENAI_API_KEY: str = ""
-    GROQ_API_KEY: str
-    OPENROUTER_API_KEY: str = ""
+    GROQ_API_KEY: str  # Primary LLM provider
+    OPENROUTER_API_KEY: str = ""  # Optional alternative
 
     # ElevenLabs
     ELEVENLABS_API_KEY: str

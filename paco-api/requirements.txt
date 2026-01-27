@@ -15,7 +15,6 @@ passlib[bcrypt]==1.7.4
 pydantic-settings==2.1.0
 
 # LLM Providers
-openai==1.53.0
 groq==0.5.0
 
 # Voice/Audio

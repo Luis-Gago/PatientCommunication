@@ -131,17 +131,17 @@ Respond ONLY with valid JSON, no additional text."""
         research_id: str,
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
-        model: str = "gpt-4o"
+        model: str = "llama-3.3-70b-versatile"
     ) -> MedicationAdherenceAnalysis:
         """
-        Analyze medication adherence from conversations using NLP
+        Analyze medication adherence from conversations using NLP (Groq AI)
         
         Args:
             db: Database session
             research_id: Patient's research ID
             start_date: Optional start date for analysis
             end_date: Optional end date for analysis
-            model: LLM model to use for analysis
+            model: Groq model to use for analysis (default: llama-3.3-70b-versatile)
             
         Returns:
             MedicationAdherenceAnalysis object with results

@@ -22,7 +22,7 @@ Before starting, ensure you have:
 - Railway account (https://railway.app) - $5/month for backend
 - Vercel account (https://vercel.com) - FREE for frontend
 - ElevenLabs API key (https://elevenlabs.io)
-- OpenAI API key (https://platform.openai.com)
+- Groq account (https://console.groq.com) - **FREE with generous limits**
 - Git installed locally
 - Your code pushed to a GitHub repository
 
@@ -112,7 +112,7 @@ JWT_SECRET_KEY=<generate-with-command-below>
 ADMIN_PASSWORD=<your-secure-password>
 
 # AI Services
-OPENAI_API_KEY=sk-...
+GROQ_API_KEY=gsk_...
 ELEVENLABS_API_KEY=...
 
 # CORS - Update after Vercel deployment
@@ -308,7 +308,7 @@ VALUES ('PATIENT_001', true, 'Test patient');
 | `DATABASE_URL` | Neon PostgreSQL connection string | `postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require` |
 | `JWT_SECRET_KEY` | Secret for JWT tokens | Generate with: `secrets.token_urlsafe(32)` |
 | `ADMIN_PASSWORD` | Admin endpoint password | Strong password |
-| `OPENAI_API_KEY` | OpenAI API key | `sk-...` |
+| `GROQ_API_KEY` | Groq AI API key (for medication analysis) | `gsk_...` |
 | `ELEVENLABS_API_KEY` | ElevenLabs API key | Your key |
 | `CORS_ORIGINS` | Allowed frontend origins | `["https://your-app.vercel.app"]` |
 | `PYTHONPATH` | Python module path | `/app` |

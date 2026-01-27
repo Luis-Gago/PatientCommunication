@@ -61,7 +61,7 @@ class AnalysisRequest(BaseModel):
     research_id: str
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
-    model: str = "gpt-4o"
+    model: str = "llama-3.3-70b-versatile"
 
     class Config:
         json_schema_extra = {
@@ -69,7 +69,7 @@ class AnalysisRequest(BaseModel):
                 "research_id": "PACO-001",
                 "start_date": "2025-01-01T00:00:00",
                 "end_date": "2025-01-26T23:59:59",
-                "model": "gpt-4o"
+                "model": "llama-3.3-70b-versatile"
             }
         }
 

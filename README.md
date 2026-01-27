@@ -18,7 +18,7 @@ An AI-powered healthcare communication platform for research, featuring ElevenLa
 - **Frontend**: Next.js 14 + TypeScript + Tailwind CSS (Deployed on Vercel)
 - **Backend**: FastAPI + Python 3.11 (Deployed on Railway)
 - **Database**: Neon PostgreSQL (Free serverless PostgreSQL)
-- **AI Services**: ElevenLabs Conversational AI + OpenAI GPT-4
+- **AI Services**: ElevenLabs Conversational AI + Groq AI (Llama models)
 
 ## Quick Start - Local Development
 
@@ -28,7 +28,7 @@ An AI-powered healthcare communication platform for research, featuring ElevenLa
 - Node.js 18+
 - PostgreSQL database
 - ElevenLabs API key
-- OpenAI API key (for medication analysis)
+- Groq API key (for medication analysis)
 
 ### Backend Setup
 
@@ -48,7 +48,7 @@ cat > .env << EOF
 DATABASE_URL=postgresql://user:password@localhost:5432/paco_db
 JWT_SECRET_KEY=$(python -c "import secrets; print(secrets.token_urlsafe(32))")
 ADMIN_PASSWORD=your_secure_admin_password
-OPENAI_API_KEY=sk-...
+GROQ_API_KEY=gsk_...
 ELEVENLABS_API_KEY=your_elevenlabs_key
 CORS_ORIGINS=["http://localhost:3000"]
 EOF
@@ -155,7 +155,7 @@ JWT_SECRET_KEY=your_secret_key
 ADMIN_PASSWORD=your_admin_password
 
 # APIs
-OPENAI_API_KEY=sk-...
+GROQ_API_KEY=gsk_...
 ELEVENLABS_API_KEY=...
 
 # CORS
@@ -217,7 +217,7 @@ MIT License - See LICENSE file for details
 - **Database (Neon)**: FREE forever
 - **Backend (Railway)**: ~$5-10/month
 - **Frontend (Vercel)**: FREE
-- **APIs (ElevenLabs + OpenAI)**: $5-30/month depending on usage
+- **APIs (ElevenLabs + Groq)**: $5-30/month depending on usage
 
 **Total: ~$15-40/month** for complete infrastructure
 

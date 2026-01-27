@@ -15,7 +15,7 @@ Complete cost breakdown for running PaCo in production.
 | Service | Purpose | Cost Model | Est. Monthly |
 |---------|---------|------------|--------------|
 | **ElevenLabs** | Voice AI | Per character or subscription | $5-22/mo |
-| **OpenAI** | Medication Analysis | Per token | $2-10/mo |
+| **Groq** | Medication Analysis (LLM) | FREE with rate limits | $0/mo |
 
 ## Total Monthly Cost Estimate
 
@@ -24,16 +24,16 @@ Complete cost breakdown for running PaCo in production.
 - **Railway Backend**: $5-10
 - **Vercel Frontend**: $0 (Free)
 - **ElevenLabs**: $5 (Starter)
-- **OpenAI**: $2-5
-- **Total: ~$12-20/month** ✅
+- **Groq AI**: $0 (Free with limits)
+- **Total: ~$10-15/month** ✅
 
 ### Typical Production Setup
 - **Neon Database**: $0-19 (Free or Scale)
 - **Railway Backend**: $10-20
 - **Vercel Frontend**: $0-20 (Free or Pro)
 - **ElevenLabs**: $22 (Creator)
-- **OpenAI**: $10-50
-- **Total: ~$42-111/month**
+- **Groq AI**: $0 (Free with limits)
+- **Total: ~$32-61/month**
 
 ## Service Details
 
@@ -122,20 +122,26 @@ Complete cost breakdown for running PaCo in production.
 - Start with **Starter ($5/mo)** for pilot
 - Upgrade to **Creator ($22/mo)** for active research
 
-### OpenAI GPT-4 (Medication Analysis)
+### Groq AI (Medication Analysis) - FREE! ⭐
 
 **Pricing:**
-- GPT-4 Turbo: $0.01/1k prompt tokens, $0.03/1k completion tokens
-- GPT-4o: $0.0025/1k prompt tokens, $0.01/1k completion tokens
+- FREE tier with generous rate limits
+- Llama 3.3 70B: FREE
+- Mixtral models: FREE
+
+**Rate Limits (Free Tier):**
+- 30 requests/minute
+- 14,400 requests/day
+- More than enough for medication analysis
 
 **Medication Analysis Costs:**
-- Per analysis: ~$0.10-0.50 (depends on conversation length)
-- 20 analyses/month: ~$2-10
-- 100 analyses/month: ~$10-50
+- Per analysis: $0 (FREE!)
+- Unlimited analyses within rate limits
+- Perfect for research projects with budgets
 
 **Recommendation:**
-- Start with GPT-4o (4x cheaper)
-- Budget $10-20/month for moderate usage
+- Use the FREE tier (perfect for research)
+- No need to upgrade for typical research usage
 
 ## Cost Optimization Tips
 
@@ -150,17 +156,17 @@ Complete cost breakdown for running PaCo in production.
 - Use database branching instead of multiple instances
 
 ### 3. Optimize API Calls
-- Cache common medication analysis results
-- Batch analyze conversations instead of real-time
-- Use GPT-4o instead of GPT-4 Turbo
+- Groq AI is FREE - analyze as much as needed!
+- ElevenLabs: Batch analyze conversations instead of real-time
+- Use shorter system prompts when possible
 
 ### 4. Monitor Usage
 - Set up billing alerts in Railway
 - Track ElevenLabs character usage
-- Monitor OpenAI API usage in dashboard
+- Monitor Groq rate limits (though generous)
 
 ### 5. Scale Gradually
-- Start with minimal setup (~$12-20/month)
+- Start with minimal setup (~$10-15/month)
 - Only upgrade when you hit limits
 - Monitor actual usage before upgrading
 
@@ -169,14 +175,14 @@ Complete cost breakdown for running PaCo in production.
 ### Grant Budget Considerations
 
 **Annual Costs:**
-- Minimal: ~$150-240/year
-- Typical: ~$500-1300/year
+- Minimal: ~$120-180/year
+- Typical: ~$400-700/year
 
 **Cost per Research Participant:**
 - Backend: ~$0.10-0.20/participant/month
 - Database: $0 (free)
 - Voice AI: ~$0.50-1.00/conversation
-- Analysis: ~$0.10-0.50/analysis
+- Analysis: $0 (Groq is free!)
 
 **For 100 Participants:**
 - Infrastructure: ~$10-20/month
