@@ -11,16 +11,11 @@ from app.models.database import ResearchID
 from app.schemas.medication_analysis import (
     AnalysisRequest,
     AnalysisResponse,
-    AnalysisResult,
+    QuilamAnalysisResult,
+    QuilamDomain,
+    QuilamDomains,
     AnalysisHistoryResponse,
-    AnalysisHistoryItem,
-    MedicationInfo,
-    TimingSchedule,
-    SideEffect,
-    AdherenceDifficulty,
-    AdherenceStrategy,
-    QuestionConcern,
-    OverallAdherence
+    AnalysisHistoryItem
 )
 from app.services.medication_analysis_service import medication_analysis_service
 from app.core.security import verify_admin_password
@@ -28,44 +23,46 @@ from app.core.security import verify_admin_password
 router = APIRouter()
 
 
-def parse_analysis_result(detailed_analysis: str) -> AnalysisResult:
-    """Parse the detailed analysis JSON into structured format"""
+def parse_analysis_result(detailed_analysis: str) -> QuilamAnalysisResult:
+    """Parse the QUILAM analysis JSON into structured format"""
     try:
         data = json.loads(detailed_analysis)
-        
-        return AnalysisResult(
-            medications=[MedicationInfo(**med) for med in data.get("medications", [])],
-            timing_schedule=TimingSchedule(**data.get("timing_schedule", {})),
-            side_effects=[SideEffect(**se) for se in data.get("side_effects", [])],
-            adherence_difficulties=[
-                AdherenceDifficulty(**diff) for diff in data.get("adherence_difficulties", [])
-            ],
-            adherence_strategies=[
-                AdherenceStrategy(**strat) for strat in data.get("adherence_strategies", [])
-            ],
-            questions_concerns=[
-                QuestionConcern(**qc) for qc in data.get("questions_concerns", [])
-            ],
-            overall_adherence=OverallAdherence(**data.get("overall_adherence", {})),
-            confidence_score=data.get("confidence_score", 0),
-            summary=data.get("summary", ""),
+        domains_data = data.get("domains", {})
+
+        valid_flags = {"surfaced", "not surfaced", "concern flagged"}
+
+        def parse_domain(key: str) -> QuilamDomain:
+            d = domains_data.get(key, {})
+            raw_flag = d.get("flag", "not surfaced").lower().strip()
+            flag = raw_flag if raw_flag in valid_flags else "not surfaced"
+            return QuilamDomain(
+                finding=d.get("finding", "Not discussed"),
+                flag=flag,
+                details=d.get("details", [])
+            )
+
+        return QuilamAnalysisResult(
+            domains=QuilamDomains(
+                general_beliefs=parse_domain("general_beliefs"),
+                self_management=parse_domain("self_management"),
+                specific_beliefs=parse_domain("specific_beliefs"),
+                provider_relationship=parse_domain("provider_relationship")
+            ),
+            overall_summary=data.get("overall_summary", ""),
             key_concerns=data.get("key_concerns", []),
-            recommendations=data.get("recommendations", [])
+            confidence_score=data.get("confidence_score", 0)
         )
-    except (json.JSONDecodeError, ValueError) as e:
-        # Return a minimal result if parsing fails
-        return AnalysisResult(
-            medications=[],
-            timing_schedule=TimingSchedule(),
-            side_effects=[],
-            adherence_difficulties=[],
-            adherence_strategies=[],
-            questions_concerns=[],
-            overall_adherence=OverallAdherence(),
-            confidence_score=0,
-            summary="Error parsing analysis results. Check detailed_analysis field.",
+    except (json.JSONDecodeError, ValueError):
+        return QuilamAnalysisResult(
+            domains=QuilamDomains(
+                general_beliefs=QuilamDomain(finding="Error parsing analysis results.", flag="not surfaced"),
+                self_management=QuilamDomain(finding="Error parsing analysis results.", flag="not surfaced"),
+                specific_beliefs=QuilamDomain(finding="Error parsing analysis results.", flag="not surfaced"),
+                provider_relationship=QuilamDomain(finding="Error parsing analysis results.", flag="not surfaced")
+            ),
+            overall_summary="Error parsing analysis results. Check detailed_analysis field.",
             key_concerns=["Analysis parsing error"],
-            recommendations=["Re-run analysis"]
+            confidence_score=0
         )
 
 
