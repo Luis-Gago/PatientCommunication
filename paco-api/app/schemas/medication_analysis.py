@@ -2,7 +2,7 @@
 Pydantic schemas for medication adherence analysis
 """
 from pydantic import BaseModel, Field
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 from datetime import datetime
 
 
@@ -65,7 +65,7 @@ class AnalysisResponse(BaseModel):
 
 
 class AnalysisHistoryItem(BaseModel):
-    """Summary of a past analysis"""
+    """Summary of a past analysis, with each QUILAM domain's flag for at-a-glance review"""
     analysis_id: int
     analysis_date: datetime
     analyzed_from: datetime
@@ -73,8 +73,8 @@ class AnalysisHistoryItem(BaseModel):
     conversation_count: int
     confidence_score: int
     summary: str
-    is_taking_medications: Optional[bool]
-    taking_as_prescribed: Optional[bool]
+    # Maps each QUILAM domain key -> its flag (surfaced / not surfaced / concern flagged)
+    domain_flags: Dict[str, str] = Field(default_factory=dict)
 
     class Config:
         from_attributes = True

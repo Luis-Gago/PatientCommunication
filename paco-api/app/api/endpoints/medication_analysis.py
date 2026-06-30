@@ -23,36 +23,80 @@ from app.core.security import verify_admin_password
 router = APIRouter()
 
 
+VALID_FLAGS = {"surfaced", "not surfaced", "concern flagged"}
+
+
+def parse_domain(domains_data: dict, key: str) -> QuilamDomain:
+    """Parse a single QUILAM domain, tolerant of LLM output variance.
+
+    Handles missing keys, explicit nulls, wrong-typed values, and flag
+    casing/whitespace. A malformed individual domain degrades to a single
+    error domain rather than discarding the whole analysis.
+    """
+    try:
+        d = domains_data.get(key)
+        if not isinstance(d, dict):
+            d = {}
+
+        raw_flag = d.get("flag") or "not surfaced"
+        flag = raw_flag.lower().strip() if isinstance(raw_flag, str) else "not surfaced"
+        if flag not in VALID_FLAGS:
+            flag = "not surfaced"
+
+        finding = d.get("finding") or "Not discussed"
+        if not isinstance(finding, str):
+            finding = str(finding)
+
+        details = d.get("details") or []
+        if not isinstance(details, list):
+            details = [str(details)]
+        else:
+            details = [str(item) for item in details]
+
+        return QuilamDomain(finding=finding, flag=flag, details=details)
+    except (ValueError, TypeError, AttributeError):
+        return QuilamDomain(finding="Could not parse this domain.", flag="not surfaced", details=[])
+
+
 def parse_analysis_result(detailed_analysis: str) -> QuilamAnalysisResult:
     """Parse the QUILAM analysis JSON into structured format"""
     try:
         data = json.loads(detailed_analysis)
-        domains_data = data.get("domains", {})
+        if not isinstance(data, dict):
+            raise ValueError("Top-level analysis JSON is not an object")
 
-        valid_flags = {"surfaced", "not surfaced", "concern flagged"}
+        domains_data = data.get("domains")
+        if not isinstance(domains_data, dict):
+            domains_data = {}
 
-        def parse_domain(key: str) -> QuilamDomain:
-            d = domains_data.get(key, {})
-            raw_flag = d.get("flag", "not surfaced").lower().strip()
-            flag = raw_flag if raw_flag in valid_flags else "not surfaced"
-            return QuilamDomain(
-                finding=d.get("finding", "Not discussed"),
-                flag=flag,
-                details=d.get("details", [])
-            )
+        try:
+            confidence_score = int(data.get("confidence_score", 0))
+        except (ValueError, TypeError):
+            confidence_score = 0
+        confidence_score = max(0, min(100, confidence_score))
+
+        key_concerns = data.get("key_concerns") or []
+        if not isinstance(key_concerns, list):
+            key_concerns = [str(key_concerns)]
+        else:
+            key_concerns = [str(item) for item in key_concerns]
+
+        overall_summary = data.get("overall_summary") or ""
+        if not isinstance(overall_summary, str):
+            overall_summary = str(overall_summary)
 
         return QuilamAnalysisResult(
             domains=QuilamDomains(
-                general_beliefs=parse_domain("general_beliefs"),
-                self_management=parse_domain("self_management"),
-                specific_beliefs=parse_domain("specific_beliefs"),
-                provider_relationship=parse_domain("provider_relationship")
+                general_beliefs=parse_domain(domains_data, "general_beliefs"),
+                self_management=parse_domain(domains_data, "self_management"),
+                specific_beliefs=parse_domain(domains_data, "specific_beliefs"),
+                provider_relationship=parse_domain(domains_data, "provider_relationship")
             ),
-            overall_summary=data.get("overall_summary", ""),
-            key_concerns=data.get("key_concerns", []),
-            confidence_score=data.get("confidence_score", 0)
+            overall_summary=overall_summary,
+            key_concerns=key_concerns,
+            confidence_score=confidence_score
         )
-    except (json.JSONDecodeError, ValueError):
+    except (json.JSONDecodeError, ValueError, TypeError):
         return QuilamAnalysisResult(
             domains=QuilamDomains(
                 general_beliefs=QuilamDomain(finding="Error parsing analysis results.", flag="not surfaced"),
@@ -154,21 +198,27 @@ async def get_analysis_history(
         limit=limit
     )
 
-    # Format response
-    history_items = [
-        AnalysisHistoryItem(
-            analysis_id=analysis.id,
-            analysis_date=analysis.analysis_date,
-            analyzed_from=analysis.analyzed_from,
-            analyzed_to=analysis.analyzed_to,
-            conversation_count=analysis.conversation_count,
-            confidence_score=analysis.confidence_score,
-            summary=analysis.summary,
-            is_taking_medications=analysis.is_taking_medications,
-            taking_as_prescribed=analysis.taking_as_prescribed
+    # Format response — surface each QUILAM domain's flag per analysis
+    history_items = []
+    for analysis in analyses:
+        result = parse_analysis_result(analysis.detailed_analysis)
+        history_items.append(
+            AnalysisHistoryItem(
+                analysis_id=analysis.id,
+                analysis_date=analysis.analysis_date,
+                analyzed_from=analysis.analyzed_from,
+                analyzed_to=analysis.analyzed_to,
+                conversation_count=analysis.conversation_count,
+                confidence_score=analysis.confidence_score,
+                summary=analysis.summary,
+                domain_flags={
+                    "general_beliefs": result.domains.general_beliefs.flag,
+                    "self_management": result.domains.self_management.flag,
+                    "specific_beliefs": result.domains.specific_beliefs.flag,
+                    "provider_relationship": result.domains.provider_relationship.flag,
+                },
+            )
         )
-        for analysis in analyses
-    ]
 
     return AnalysisHistoryResponse(
         research_id=research_id,
