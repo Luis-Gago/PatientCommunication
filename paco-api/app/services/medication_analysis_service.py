@@ -18,59 +18,76 @@ from app.services.llm_service import llm_service
 class MedicationAnalysisService:
     """Service for analyzing medication adherence from conversations"""
 
-    ANALYSIS_PROMPT = """You are a medical data analyst tasked with extracting medication adherence information from patient conversations.
+    ANALYSIS_PROMPT = """You are a clinical research analyst reviewing a patient conversation transcript to assess medication adherence using the QUILAM framework.
 
-Analyze the following conversation transcript and extract structured information about:
+Analyze the conversation and fill out the four QUILAM domains below. For each domain, write a brief finding summarizing what the patient shared, and assign a flag.
 
-1. **Medications**: List all medications mentioned (name, dosage if mentioned)
-2. **Timing**: When the patient takes their medications (morning, evening, with meals, etc.)
-3. **Side Effects**: Any adverse effects or symptoms the patient reports
-4. **Adherence Difficulties**: Problems the patient has taking medications as prescribed (forgetting, cost, access, confusion, etc.)
-5. **Adherence Strategies**: Methods the patient uses to remember/take medications (alarms, pill boxes, routines, etc.)
-6. **Questions/Concerns**: Any questions or concerns the patient has expressed about their medications
+Flag definitions:
+- "surfaced": The topic came up and no significant concern was identified.
+- "not surfaced": The topic did not come up in this conversation.
+- "concern flagged": A concern in this domain was identified that warrants provider attention.
 
-**Conversation Transcript:**
+---
+
+Domain 1 - General Beliefs About Treatment
+Items to assess:
+- Does the patient feel doctors overprescribe medication?
+- Does the patient worry about long-term side effects of their medication?
+- Does the patient trust medical treatments more or less than natural remedies?
+
+Domain 2 - Self-Management of Treatment (Unintentional Nonadherence)
+Items to assess:
+- Does the patient forget to refill prescriptions?
+- Does the patient sometimes not have their medication available when they need it?
+- Does the patient have difficulty managing multiple medications?
+
+Domain 3 - Specific Beliefs About Treatment (Intentional Nonadherence)
+Items to assess:
+- Does the patient feel socially uncomfortable taking medication in front of others?
+- Is the patient sometimes negligent about taking their medication?
+- Has the patient reduced or stopped their medication without telling their doctor because they felt worse?
+
+Domain 4 - Patient/Healthcare System Relationship
+Items to assess:
+- Does the patient feel they make decisions together with their doctor?
+- Does the patient understand their healthcare provider's instructions?
+- Did the patient's doctor explain how to properly treat their illness?
+- Is the patient satisfied with their treatment overall?
+
+---
+
+Conversation Transcript:
 {conversation_transcript}
 
-**Instructions:**
-- Be specific and quote relevant parts of the conversation
-- If information is not mentioned, state "Not discussed" for that category
-- Use a confidence score (0-100) to indicate how certain you are about the information
-- Provide a brief summary suitable for a medical provider to quickly understand the patient's adherence status
+---
 
-**Output Format (JSON):**
+Output Format (JSON only, no additional text):
 {{
-  "medications": [
-    {{"name": "medication name", "dosage": "dosage if mentioned", "mentioned_by_patient": true/false}}
-  ],
-  "timing_schedule": {{
-    "morning": ["list of medications"],
-    "afternoon": ["list of medications"],
-    "evening": ["list of medications"],
-    "as_needed": ["list of medications"],
-    "unclear": ["list of medications"]
+  "domains": {{
+    "general_beliefs": {{
+      "finding": "What the patient shared about their general beliefs, or 'Not discussed' if this did not come up.",
+      "flag": "surfaced or not surfaced or concern flagged",
+      "details": ["Specific items or direct quotes from the conversation that support the finding"]
+    }},
+    "self_management": {{
+      "finding": "What the patient shared about day-to-day self-management challenges, or 'Not discussed'.",
+      "flag": "surfaced or not surfaced or concern flagged",
+      "details": ["Specific items or direct quotes"]
+    }},
+    "specific_beliefs": {{
+      "finding": "What the patient shared about intentional decisions to skip, reduce, or stop medication, or 'Not discussed'.",
+      "flag": "surfaced or not surfaced or concern flagged",
+      "details": ["Specific items or direct quotes"]
+    }},
+    "provider_relationship": {{
+      "finding": "What the patient shared about their relationship with their healthcare team, or 'Not discussed'.",
+      "flag": "surfaced or not surfaced or concern flagged",
+      "details": ["Specific items or direct quotes"]
+    }}
   }},
-  "side_effects": [
-    {{"medication": "medication name or 'unclear'", "effect": "description", "severity": "mild/moderate/severe"}}
-  ],
-  "adherence_difficulties": [
-    {{"type": "forgetting/cost/access/side_effects/complexity/other", "description": "detailed description"}}
-  ],
-  "adherence_strategies": [
-    {{"type": "alarm/pill_box/routine/caregiver_help/other", "description": "detailed description", "effectiveness": "working well/somewhat helpful/not working"}}
-  ],
-  "questions_concerns": [
-    {{"topic": "topic area", "question": "patient's question or concern", "addressed": true/false}}
-  ],
-  "overall_adherence": {{
-    "taking_medications": true/false/unclear,
-    "taking_as_prescribed": true/false/unclear,
-    "taking_correct_medications": true/false/unclear
-  }},
-  "confidence_score": 0-100,
-  "summary": "Brief 2-3 sentence summary for medical provider",
-  "key_concerns": ["List of 3-5 most important concerns for provider to know"],
-  "recommendations": ["Suggested follow-up actions based on the conversation"]
+  "overall_summary": "2-3 sentence summary of the patient's medication adherence situation for the provider.",
+  "key_concerns": ["Most important concerns for the provider to follow up on"],
+  "confidence_score": 0-100
 }}
 
 Respond ONLY with valid JSON, no additional text."""
@@ -205,15 +222,8 @@ Respond ONLY with valid JSON, no additional text."""
             analyzed_from=earliest,
             analyzed_to=latest,
             conversation_count=message_count,
-            is_taking_medications=analysis_data.get("overall_adherence", {}).get("taking_medications"),
-            taking_as_prescribed=analysis_data.get("overall_adherence", {}).get("taking_as_prescribed"),
-            taking_correct_medications=analysis_data.get("overall_adherence", {}).get("taking_correct_medications"),
-            adherence_barriers=json.dumps(analysis_data.get("adherence_difficulties", [])),
-            adherence_strategies=json.dumps(analysis_data.get("adherence_strategies", [])),
-            side_effects=json.dumps(analysis_data.get("side_effects", [])),
-            medication_list=json.dumps(analysis_data.get("medications", [])),
             confidence_score=analysis_data.get("confidence_score", 0),
-            summary=analysis_data.get("summary", "Analysis completed."),
+            summary=analysis_data.get("overall_summary", "Analysis completed."),
             detailed_analysis=response,
             model_used=model
         )

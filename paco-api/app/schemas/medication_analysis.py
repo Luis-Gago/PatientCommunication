@@ -2,58 +2,31 @@
 Pydantic schemas for medication adherence analysis
 """
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import Dict, List, Literal, Optional
 from datetime import datetime
 
 
-class MedicationInfo(BaseModel):
-    """Information about a specific medication"""
-    name: str
-    dosage: Optional[str] = None
-    mentioned_by_patient: bool = True
+class QuilamDomain(BaseModel):
+    """Finding and flag for a single QUILAM domain"""
+    finding: str
+    flag: Literal["surfaced", "not surfaced", "concern flagged"]
+    details: List[str] = Field(default_factory=list)
 
 
-class TimingSchedule(BaseModel):
-    """When medications are taken"""
-    morning: List[str] = Field(default_factory=list)
-    afternoon: List[str] = Field(default_factory=list)
-    evening: List[str] = Field(default_factory=list)
-    as_needed: List[str] = Field(default_factory=list)
-    unclear: List[str] = Field(default_factory=list)
+class QuilamDomains(BaseModel):
+    """All four QUILAM domains"""
+    general_beliefs: QuilamDomain
+    self_management: QuilamDomain
+    specific_beliefs: QuilamDomain
+    provider_relationship: QuilamDomain
 
 
-class SideEffect(BaseModel):
-    """Side effect information"""
-    medication: str
-    effect: str
-    severity: str = Field(..., pattern="^(mild|moderate|severe)$")
-
-
-class AdherenceDifficulty(BaseModel):
-    """Difficulties with medication adherence"""
-    type: str
-    description: str
-
-
-class AdherenceStrategy(BaseModel):
-    """Strategies used to improve adherence"""
-    type: str
-    description: str
-    effectiveness: str = Field(..., pattern="^(working well|somewhat helpful|not working)$")
-
-
-class QuestionConcern(BaseModel):
-    """Patient questions or concerns"""
-    topic: str
-    question: str
-    addressed: bool = False
-
-
-class OverallAdherence(BaseModel):
-    """Overall adherence status"""
-    taking_medications: Optional[bool] = None
-    taking_as_prescribed: Optional[bool] = None
-    taking_correct_medications: Optional[bool] = None
+class QuilamAnalysisResult(BaseModel):
+    """Complete QUILAM framework analysis result"""
+    domains: QuilamDomains
+    overall_summary: str
+    key_concerns: List[str] = Field(default_factory=list)
+    confidence_score: int = Field(..., ge=0, le=100)
 
 
 class AnalysisRequest(BaseModel):
@@ -74,23 +47,8 @@ class AnalysisRequest(BaseModel):
         }
 
 
-class AnalysisResult(BaseModel):
-    """Complete analysis result"""
-    medications: List[MedicationInfo]
-    timing_schedule: TimingSchedule
-    side_effects: List[SideEffect]
-    adherence_difficulties: List[AdherenceDifficulty]
-    adherence_strategies: List[AdherenceStrategy]
-    questions_concerns: List[QuestionConcern]
-    overall_adherence: OverallAdherence
-    confidence_score: int = Field(..., ge=0, le=100)
-    summary: str
-    key_concerns: List[str] = Field(default_factory=list)
-    recommendations: List[str] = Field(default_factory=list)
-
-
 class AnalysisResponse(BaseModel):
-    """Response containing analysis results and metadata"""
+    """Response containing QUILAM analysis results and metadata"""
     analysis_id: int
     research_id: str
     analysis_date: datetime
@@ -100,14 +58,14 @@ class AnalysisResponse(BaseModel):
     confidence_score: int
     summary: str
     model_used: str
-    result: AnalysisResult
+    result: QuilamAnalysisResult
 
     class Config:
         from_attributes = True
 
 
 class AnalysisHistoryItem(BaseModel):
-    """Summary of a past analysis"""
+    """Summary of a past analysis, with each QUILAM domain's flag for at-a-glance review"""
     analysis_id: int
     analysis_date: datetime
     analyzed_from: datetime
@@ -115,8 +73,8 @@ class AnalysisHistoryItem(BaseModel):
     conversation_count: int
     confidence_score: int
     summary: str
-    is_taking_medications: Optional[bool]
-    taking_as_prescribed: Optional[bool]
+    # Maps each QUILAM domain key -> its flag (surfaced / not surfaced / concern flagged)
+    domain_flags: Dict[str, str] = Field(default_factory=dict)
 
     class Config:
         from_attributes = True

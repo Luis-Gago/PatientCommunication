@@ -1,63 +1,108 @@
 """
-LLM Service for chat completions
+LLM Service with multiple providers and automatic fallback
 """
 from typing import List, Dict, Any, Optional
 import os
-from groq import AsyncGroq
-
 from app.core.config import get_settings
+from .providers.base_provider import BaseProvider, RateLimitError
+from .providers.gemini_provider import GeminiProvider
+from .providers.openai_provider import OpenAIProvider
+from .providers.groq_provider import GroqProvider
 
 settings = get_settings()
 
 
-class LLMService:
-    """Service for interacting with Groq LLM provider"""
-
+class MultiLLMService:
+    """Service with multiple LLM providers and automatic fallback"""
+    
     def __init__(self):
-        """Initialize Groq client"""
-        self.groq_client = None
-
-        # Initialize Groq if API key is available
+        """Initialize all available providers in priority order"""
+        self.providers: List[BaseProvider] = []
+        self.current_index = 0
+        
+        # Add providers in priority order (Gemini first for free tier)
+        if settings.GEMINI_API_KEY:
+            self.providers.append(GeminiProvider(api_key=settings.GEMINI_API_KEY))
+            print("[LLM] Initialized GeminiProvider")
+        
+        if settings.OPENAI_API_KEY:
+            self.providers.append(OpenAIProvider(api_key=settings.OPENAI_API_KEY))
+            print("[LLM] Initialized OpenAIProvider")
+        
+        # Keep Groq as fallback if available
         if settings.GROQ_API_KEY:
-            self.groq_client = AsyncGroq(api_key=settings.GROQ_API_KEY)
-        else:
-            raise ValueError("GROQ_API_KEY is required for LLM service")
-
+            self.providers.append(GroqProvider(api_key=settings.GROQ_API_KEY))
+            print("[LLM] Initialized GroqProvider")
+        
+        if not self.providers:
+            raise ValueError("No LLM API keys configured. Set GEMINI_API_KEY or OPENAI_API_KEY")
+        
+        print(f"[LLM] {len(self.providers)} provider(s) available")
+    
     async def get_chat_completion(
         self,
         messages: List[Dict[str, str]],
-        model: str = "llama-3.3-70b-versatile",
+        model: str = "llama-3.3-70b-versatile",  # Ignored (for backward compatibility)
         temperature: float = 0.7,
         max_tokens: int = 2000,
         **kwargs
     ) -> str:
         """
-        Get chat completion from Groq LLM provider
+        Get chat completion with automatic provider fallback
+        
+        Tries providers in order until one succeeds.
+        Automatically switches on rate limit errors (429).
         
         Args:
             messages: List of message dicts with 'role' and 'content'
-            model: Model name (e.g., 'llama-3.3-70b-versatile', 'mixtral-8x7b-32768')
+            model: Ignored (kept for backward compatibility)
             temperature: Sampling temperature
             max_tokens: Maximum tokens to generate
-            **kwargs: Additional parameters for the LLM
+            **kwargs: Additional parameters (ignored)
             
         Returns:
             Response content as string
         """
-        if not self.groq_client:
-            raise ValueError("Groq API key not configured")
+        last_error = None
+        attempts = 0
+        max_attempts = len(self.providers)
+        
+        # Try all providers
+        while attempts < max_attempts:
+            provider = self.providers[self.current_index]
+            provider_name = provider.__class__.__name__
+            
+            try:
+                print(f"[LLM] Attempt {attempts + 1}/{max_attempts}: Using {provider_name}")
+                
+                response = await provider.complete(
+                    messages=messages,
+                    max_tokens=max_tokens,
+                    temperature=temperature
+                )
+                
+                print(f"[LLM] Success with {provider_name}")
+                return response
+                
+            except RateLimitError as e:
+                print(f"[LLM] {provider_name} rate limited, switching to next provider...")
+                last_error = e
+                # Switch to next provider
+                self.current_index = (self.current_index + 1) % len(self.providers)
+                attempts += 1
+                continue
+                
+            except Exception as e:
+                print(f"[LLM] {provider_name} error: {e}")
+                last_error = e
+                # Try next provider
+                self.current_index = (self.current_index + 1) % len(self.providers)
+                attempts += 1
+                continue
+        
+        # All providers failed
+        raise Exception(f"All {max_attempts} LLM provider(s) failed. Last error: {last_error}")
 
-        # Make API call to Groq
-        response = await self.groq_client.chat.completions.create(
-            model=model,
-            messages=messages,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            **kwargs
-        )
 
-        return response.choices[0].message.content
-
-
-# Global instance
-llm_service = LLMService()
+# Global instance (backward compatible with existing code)
+llm_service = MultiLLMService()

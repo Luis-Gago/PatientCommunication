@@ -4,7 +4,7 @@ Application configuration settings
 from pydantic_settings import BaseSettings
 from pydantic import field_validator
 from functools import lru_cache
-from typing import List, Union
+from typing import List, Optional, Union
 
 
 class Settings(BaseSettings):
@@ -16,19 +16,21 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
 
     # Security
-    SECRET_KEY: str
+    SECRET_KEY: Optional[str] = None
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
 
     # Database
-    DATABASE_URL: str
+    DATABASE_URL: Optional[str] = None
 
     # LLM API Keys
-    GROQ_API_KEY: str  # Primary LLM provider
-    OPENROUTER_API_KEY: str = ""  # Optional alternative
+    GROQ_API_KEY: Optional[str] = None  # Primary LLM provider
+    OPENROUTER_API_KEY: Optional[str] = None  # Optional alternative
+    GEMINI_API_KEY: Optional[str] = None
+    OPENAI_API_KEY: Optional[str] = None
 
     # ElevenLabs
-    ELEVENLABS_API_KEY: str
+    ELEVENLABS_API_KEY: Optional[str] = None
     ELEVENLABS_VOICE_ID: str = "9BWtsMINqrJLrRacOk9x"  # Aria voice
     ELEVENLABS_MODEL_ID: str = "eleven_multilingual_v2"
 
@@ -36,7 +38,7 @@ class Settings(BaseSettings):
     CORS_ORIGINS: Union[str, List[str]] = "http://localhost:3000,http://localhost:5173,https://paco.vercel.app"
 
     # Admin
-    ADMIN_PASSWORD: str = ""
+    ADMIN_PASSWORD: Optional[str] = None
 
     # Research IDs (used by seed script only)
     RESEARCH_IDS: str = ""
